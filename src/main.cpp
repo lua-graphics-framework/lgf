@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 
-#include "../vendor/include/lua/lua.hpp"
-#include "../vendor/include/sdl2/SDL.h"
+#include "../external/include/lua/lua.hpp"
+#include "../external/include/sdl2/SDL.h"
 
 #include "libs/window/include/window.hpp"
 #include "libs/rectangle/include/rectangle.hpp"
@@ -24,7 +24,8 @@ Keyboard keyboard;
 ImageLoader loader;
 FontLoader fontLoader;
 
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     L = luaL_newstate();
     luaL_openlibs(L);
 

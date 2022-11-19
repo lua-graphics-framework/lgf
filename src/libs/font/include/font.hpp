@@ -5,8 +5,8 @@
 #include <vector>
 #include <string>
 
-#include "../../../../vendor/include/sdl2/SDL_ttf.h"
-#include "../../../../vendor/include/lua/lua.hpp"
+#include "../../../../external/include/sdl2/SDL_ttf.h"
+#include "../../../../external/include/lua/lua.hpp"
 
 class FontLoader {
     public:
