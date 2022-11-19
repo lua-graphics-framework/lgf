@@ -1,23 +1,20 @@
 #pragma once
-#ifndef FONT_HPP
-#define FONT_HPP
 
 #include <vector>
 #include <string>
 
-#include "../../../../external/include/sdl2/SDL_ttf.h"
-#include "../../../../external/include/lua/lua.hpp"
+#include <SDL_ttf.h>
+#include <lua.hpp>
 
-class FontLoader {
-    public:
-        static std::vector<TTF_Font *> fonts;
-        static std::vector<SDL_Texture *> textures;
+class FontLoader
+{
+public:
+  static std::vector<TTF_Font *> fonts;
+  static std::vector<SDL_Texture *> textures;
 
-        static int loadFont(lua_State *L);
-        static int loadText(lua_State *L);
-        static int renderText(lua_State *L);
+  static int loadFont(lua_State *L);
+  static int loadText(lua_State *L);
+  static int renderText(lua_State *L);
 
-        void syncWithLua(lua_State *L);
+  void syncWithLua(lua_State *L);
 };
-
-#endif

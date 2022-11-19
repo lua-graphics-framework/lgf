@@ -2,8 +2,8 @@
 #include <string>
 #include <vector>
 
-#include "../../../external/include/sdl2/SDL_ttf.h"
-#include "../../../external/include/lua/lua.hpp"
+#include <SDL_ttf.h>
+#include <lua.hpp>
 
 #include "../window/include/window.hpp"
 #include "../image/include/image.hpp"

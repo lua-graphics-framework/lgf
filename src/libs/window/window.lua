@@ -2,57 +2,57 @@ window = {}
 window.__index = window
 
 function window.create(title, width, height)
-    local self = setmetatable({}, window)
+  local self = setmetatable({}, window)
 
-    self.title = title
-    self.width = width
-    self.height = height
+  self.title = title
+  self.width = width
+  self.height = height
 
-    self:new()
+  self:new()
 
-    return self
+  return self
 end
 
 function window:isCloseRequested()
-    return isCloseRequested()
+  return isCloseRequested()
 end
 
 function window:setIcon(path)
-    setIcon(path)
+  setIcon(path)
 end
 
 function window:new()
-    create(self.title, self.width, self.height)
+  create(self.title, self.width, self.height)
 end
 
 function window:vsyncOn()
-    setVSync(1)
+  setVSync(1)
 end
 
 function window:vsyncOff()
-    setVSync(0)
+  setVSync(0)
 end
 
 function window:changeColor(r, g, b)
-    windowChangeColor(r, g, b)
+  windowChangeColor(r, g, b)
 end
 
 function window:sync(fps)
-    sync(fps)
+  sync(fps)
 end
 
 function window:update()
-    update()
+  update()
 end
 
 function window:clear()
-    clearScreen()
+  clearScreen()
 end
 
 function window:render()
-    display()
+display()
 end
 
 function window:close()
-    close()
+close()
 end

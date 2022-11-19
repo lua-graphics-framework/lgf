@@ -1,9 +1,6 @@
 #pragma once
 
-#ifndef KEYCODE_HPP
-#define KEYCODE_HPP
-
-#include "../../../../external/include/sdl2/SDL.h"
+#include <SDL.h>
 
 #define KEY_Q SDLK_q
 #define KEY_W SDLK_w
@@ -58,5 +55,3 @@
 #define KEY_PLUS SDLK_PLUS
 #define KEY_MINUS SDLK_MINUS
 #define KEY_EQUALS SDLK_EQUALS
-
-#endif

@@ -1,14 +1,14 @@
 require("src.libs.window.window")
 
-window.create("yeehaw", 800, 600)
+window.create("LGF Test", 1280, 720)
 window:changeColor(0, 0, 0)
 window:sync(60)
 
 while not window:isCloseRequested() do
-    window:clear()
-    window:update()
+  window:clear()
+  window:update()
 
-    window:render()
+  window:render()
 end
 
 window:close()

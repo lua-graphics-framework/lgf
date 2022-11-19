@@ -15,8 +15,15 @@ set(WINDOW_SRCS src/libs/window/window.cpp)
 
 set(SRCS src/main.cpp ${FONT_SRCS} ${IMAGE_SRCS} ${KEYBOARD_SRCS} ${MOUSE_SRCS} ${RECTANGLE_SRCS} ${WINDOW_SRCS})
 
-include_directories(external/include)
-link_directories(external/lib)
+add_subdirectory(external/SDL)
+add_subdirectory(external/SDL_image)
+add_subdirectory(external/SDL_ttf)
+add_subdirectory(external/lua-5.4.4)
+
+include_directories(external/SDL/include)
+include_directories(external/SDL_image)
+include_directories(external/SDL_ttf)
+include_directories(external/lua-5.4.4/src)
 
 add_executable(LuaGraphicsFramework ${SRCS})
-target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua54)
+target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua)
