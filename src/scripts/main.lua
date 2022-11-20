@@ -5,10 +5,14 @@ LGF.Window:sync(60)
 
 LGF.Renderer.new()
 
+local testImg = LGF.Image.load(10, 10, 50, 50, "res/gfx/ball.png")
+
 while LGF.Window:active() do
+  LGF.Renderer:changeColorRGB(0, 0, 0)
   LGF.Renderer:clearScreen()
 
-  LGF.Renderer:changeColorRGB(0, 0, 0)
+  testImg:draw()
+
   LGF.Renderer:render()
 
   LGF.Window:update()

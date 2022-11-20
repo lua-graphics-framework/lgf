@@ -6,13 +6,10 @@
 #include <SDL.h>
 #include <lua.hpp>
 
-class ImageLoader
+namespace ImageLoader
 {
-public:
-  static std::vector<SDL_Texture *> textures;
-
-  static int loadImage(lua_State *L);
-  static int drawImage(lua_State *L);
+  int loadImage(lua_State *L);
+  int drawImage(lua_State *L);
 
   void syncWithLua(lua_State *L);
 };

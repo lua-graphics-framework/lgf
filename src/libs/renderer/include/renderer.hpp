@@ -14,5 +14,8 @@ namespace Renderer
   void setDrawColor(int r, int g, int b);
   void renderRect(SDL_Rect rect);
 
+  SDL_Texture *loadImg(const char *filepath);
+  void drawImg(int x, int y, unsigned int width, unsigned int height, SDL_Texture *texture);
+
   void syncWithLua(lua_State *L);
 }

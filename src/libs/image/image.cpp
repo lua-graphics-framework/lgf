@@ -7,16 +7,16 @@
 #include <lua.hpp>
 
 #include "include/image.hpp"
-#include "../window/include/window.hpp"
+#include "../renderer/include/renderer.hpp"
 
-std::vector<SDL_Texture *> ImageLoader::textures;
+std::vector<SDL_Texture *> textures;
 
 int ImageLoader::loadImage(lua_State *L)
 {
   const char *path = lua_tostring(L, 1);
 
-  // SDL_Texture *tex = window::loadImage(path);
-  // textures.push_back(tex);
+  SDL_Texture *tex = Renderer::loadImg(path);
+  textures.push_back(tex);
 
   return 0;
 }
@@ -29,7 +29,7 @@ int ImageLoader::drawImage(lua_State *L)
   int h = lua_tonumber(L, 4);
 
   int textureIndex = lua_tonumber(L, 5);
-  // window::drawImage(x, y, w, h, textures[textureIndex]);
+  Renderer::drawImg(x, y, w, h, textures[textureIndex]);
 
   return 0;
 }

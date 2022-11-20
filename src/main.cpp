@@ -18,7 +18,6 @@ lua_State *L;
 SDL_Window *win;
 SDL_Renderer *ren;
 
-ImageLoader loader;
 FontLoader fontLoader;
 
 int main(int argc, char *argv[])
@@ -33,8 +32,8 @@ int main(int argc, char *argv[])
   Renderer::syncWithLua(L);
   Mouse::syncWithLua(L);
   Keyboard::syncWithLua(L);
+  ImageLoader::syncWithLua(L);
 
-  loader.syncWithLua(L);
   fontLoader.syncWithLua(L);
 
   luaL_dofile(L, "./src/scripts/main.lua");

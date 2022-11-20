@@ -51,7 +51,9 @@ int Window::create(lua_State *L)
     unsigned int height = lua_tointeger(L, 2);
     const char *title = lua_tostring(L, 3);
 
+    // Initialize SDL2
     SDL_Init(SDL_INIT_VIDEO);
+    IMG_Init(IMG_INIT_PNG);
 
     // Creating the window
     window = SDL_CreateWindow(
@@ -128,6 +130,7 @@ int Window::close(lua_State *L)
   if (window)
   {
     SDL_DestroyWindow(window);
+    IMG_Quit();
     SDL_Quit();
   }
 

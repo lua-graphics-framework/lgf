@@ -79,6 +79,30 @@ void Renderer::renderRect(SDL_Rect rect)
   SDL_RenderFillRect(renderer, &rect);
 }
 
+// Loads an image for rendering
+SDL_Texture *Renderer::loadImg(const char *filepath)
+{
+  SDL_Surface *img = IMG_Load(filepath);
+
+  if (!img)
+  {
+    std::cout << "Error: Image filepath \"" << filepath << "\" is invalid.\n";
+    exit(1);
+  }
+
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, img);
+  SDL_FreeSurface(img);
+
+  return texture;
+}
+
+// Draws the loaded image
+void Renderer::drawImg(int x, int y, unsigned int width, unsigned int height, SDL_Texture *texture)
+{
+  SDL_Rect pos = {x, y, (int)width, (int)height};
+  SDL_RenderCopy(renderer, texture, nullptr, &pos);
+}
+
 // Pushes all of these functions to the Lua stack to be callable by Lua
 void Renderer::syncWithLua(lua_State *L)
 {
