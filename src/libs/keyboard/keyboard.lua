@@ -3,14 +3,9 @@ require("src.libs.keyboard.keycode")
 keyboard = {}
 keyboard.__index = keyboard
 
-function keyboard.create()
-  local self = setmetatable({}, keyboard)
-  return self
-end
-
 function keyboard:keyup(keycode)
   if keycode then
-    if keyup2() == keycode then
+    if keyup() == keycode then
       return true
     end
   end
@@ -26,4 +21,8 @@ function keyboard:keydown(keycode)
   end
 
   return false
+end
+
+function keyboard:poll()
+  pollKeyboard()
 end

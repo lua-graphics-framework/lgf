@@ -1,13 +1,11 @@
 #pragma once
 #include <lua.hpp>
 
-class Keyboard
+namespace Keyboard
 {
-public:
-  static int key;
-
-  static int keyup(lua_State *L);
-  static int keydown(lua_State *L);
+  int keyup(lua_State *L);
+  int keydown(lua_State *L);
+  int poll(lua_State *L);
 
   void syncWithLua(lua_State *L);
 };

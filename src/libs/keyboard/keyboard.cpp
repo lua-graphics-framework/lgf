@@ -9,7 +9,7 @@
 #include "../window/include/window.hpp"
 
 bool keyDown = false;
-int Keyboard::key = 0;
+int key = 0;
 
 int Keyboard::keyup(lua_State *L)
 {
@@ -42,8 +42,22 @@ int Keyboard::keydown(lua_State *L)
   return 1;
 }
 
+// Polls keyboard events
+int Keyboard::poll(lua_State *L)
+{
+  SDL_Event event = Window::getEv();
+
+  if (event.type == SDL_KEYDOWN)
+  {
+    key = event.key.keysym.sym;
+  }
+
+  return 0;
+}
+
 void Keyboard::syncWithLua(lua_State *L)
 {
-  lua_register(L, "keyup2", keyup);
+  lua_register(L, "keyup", keyup);
   lua_register(L, "keydown", keydown);
+  lua_register(L, "pollKeyboard", poll);
 }
