@@ -103,6 +103,27 @@ void Renderer::drawImg(int x, int y, unsigned int width, unsigned int height, SD
   SDL_RenderCopy(renderer, texture, nullptr, &pos);
 }
 
+// Loads some text to the screen
+SDL_Texture *Renderer::loadText(const char *text, int r, int g, int b, TTF_Font *font)
+{
+  SDL_Color color = { (Uint8)r, (Uint8)g, (Uint8)b };
+  SDL_Surface *txt = TTF_RenderText_Blended(font, text, color);
+  SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer, txt);
+
+  SDL_FreeSurface(txt);
+  return texture;
+}
+
+// Draws text to the screen
+void Renderer::drawText(int x, int y, SDL_Texture *text)
+{
+  int w{}, h{};
+  SDL_QueryTexture(text, nullptr, nullptr, &w, &h);
+
+  SDL_Rect dst = { x, y, w, h };
+  SDL_RenderCopy(renderer, text, nullptr, &dst);
+}
+
 // Pushes all of these functions to the Lua stack to be callable by Lua
 void Renderer::syncWithLua(lua_State *L)
 {

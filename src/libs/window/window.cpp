@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include <SDL_ttf.h>
 
 #include "include/window.hpp"
 
@@ -54,6 +55,7 @@ int Window::create(lua_State *L)
     // Initialize SDL2
     SDL_Init(SDL_INIT_VIDEO);
     IMG_Init(IMG_INIT_PNG);
+    TTF_Init();
 
     // Creating the window
     window = SDL_CreateWindow(
@@ -130,6 +132,8 @@ int Window::close(lua_State *L)
   if (window)
   {
     SDL_DestroyWindow(window);
+    
+    TTF_Quit();
     IMG_Quit();
     SDL_Quit();
   }
