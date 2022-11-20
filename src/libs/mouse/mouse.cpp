@@ -13,6 +13,10 @@ SDL_Event ev;
 int button = 0;
 int buttonMode = 0;
 
+// Mouse position
+int x;
+int y;
+
 // Returns a boolean value determining if the mouse button provided is being held down
 int Mouse::mouseButtonDown(lua_State *L)
 {
@@ -56,6 +60,9 @@ int Mouse::pollEvents(lua_State *L)
   buttonMode = 0;
   ev = Window::getEv();
 
+  // Set mouse position
+  SDL_GetMouseState(&x, &y);
+
   if (ev.type == SDL_MOUSEBUTTONDOWN)
   {
     buttonMode = 2;
@@ -70,9 +77,25 @@ int Mouse::pollEvents(lua_State *L)
   return 0;
 }
 
+// Returns the X position of the mouse cursor
+int Mouse::getMousePosX(lua_State *L)
+{
+  lua_pushinteger(L, x);
+  return 1;
+}
+
+// Returns the Y position of the mouse cursor
+int Mouse::getMousePosY(lua_State *L)
+{
+  lua_pushinteger(L, y);
+  return 1;
+}
+
 void Mouse::syncWithLua(lua_State *L)
 {
   lua_register(L, "mouseButtonDown", mouseButtonDown);
   lua_register(L, "mouseButtonUp", mouseButtonUp);
   lua_register(L, "mousePollEvents", pollEvents);
+  lua_register(L, "getMousePosX", getMousePosX);
+  lua_register(L, "getMousePosY", getMousePosY);
 }

@@ -8,16 +8,11 @@ LGF.Renderer.new()
 while LGF.Window:active() do
   LGF.Renderer:clearScreen()
 
-  if LGF.Mouse:mouseButtonUp(1) == true then
-    print("Left mouse button pressed.")
-  end
+  LGF.Mouse:poll()
+  local pos = LGF.Mouse:getCursorPos()
 
-  if LGF.Mouse:mouseButtonUp(2) == true then
-    print("Middle mouse button pressed.")
-  end
-
-  if LGF.Mouse:mouseButtonUp(3) == true then
-    print("Right mouse button pressed.")
+  if pos[1] < 100 then
+    print("Mouse position is less than 100.")
   end
 
   LGF.Renderer:changeColorRGB(0, 0, 0)

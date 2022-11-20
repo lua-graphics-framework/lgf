@@ -17,12 +17,18 @@ function clearEvents()
   mouse.button3Down = false
 end
 
-function mouse:mouseButtonDown(btn)
+function mouse:poll()
   mousePollEvents()
+end
+
+function mouse:mouseButtonDown(btn)
   return mouseButtonDown(btn)
 end
 
 function mouse:mouseButtonUp(btn)
-  mousePollEvents()
   return mouseButtonUp(btn)
+end
+
+function mouse:getCursorPos()
+  return { getMousePosX(), getMousePosY() }
 end
