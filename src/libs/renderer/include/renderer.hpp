@@ -1,5 +1,7 @@
 #pragma once
+
 #include <lua.hpp>
+#include <SDL.h>
 
 namespace Renderer
 {

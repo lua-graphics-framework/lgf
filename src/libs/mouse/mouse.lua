@@ -1,48 +1,28 @@
 mouse = {}
 mouse.__index = mouse
 
-function mouse.create()
-  local self = setmetatable({}, mouse)
+mouse.button1Up = false
+mouse.button1Down = false
+mouse.button2Up = false
+mouse.button2Down = false
+mouse.button3Up = false
+mouse.button3Down = false
 
-  self.button1Up = false
-  self.button1Down = false
-  self.button2Up = false
-  self.button2Down = false
-  self.button3Up = false
-  self.button3Down = false
-
-  return self
+function clearEvents()
+  mouse.button1Up = false
+  mouse.button1Down = false
+  mouse.button2Up = false
+  mouse.button2Down = false
+  mouse.button3Up = false
+  mouse.button3Down = false
 end
 
-function mouse:clearEvents()
-  self.button1Up = false
-  self.button1Down = false
-  self.button2Up = false
-  self.button2Down = false
-  self.button3Up = false
-  self.button3Down = false
+function mouse:mouseButtonDown(btn)
+  mousePollEvents()
+  return mouseButtonDown(btn)
 end
 
-function mouse:poll()
-  if mouseButtonUp(1) == true then
-    self:clearEvents()
-    self.button1Up = true
-  elseif mouseButtonDown(1) == true then
-    self:clearEvents()
-    self.button1Down = true
-  elseif mouseButtonUp(2) == true then
-    self:clearEvents()
-    self.button2Up = true
-  elseif mouseButtonDown(2) == true then
-    self:clearEvents()
-    self.button2Down = true
-  elseif mouseButtonUp(3) == true then
-    self:clearEvents()
-    self.button3Up = true
-  elseif mouseButtonDown(3) == true then
-    self:clearEvents()
-    self.button3Down = true
-  else
-    self:clearEvents()
-  end
+function mouse:mouseButtonUp(btn)
+  mousePollEvents()
+  return mouseButtonUp(btn)
 end

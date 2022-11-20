@@ -5,21 +5,20 @@ LGF.Window:sync(60)
 
 LGF.Renderer.new()
 
-local r = LGF.Rectangle.create(10, 10, 50, 50)
-local r2 = LGF.Rectangle.create(10, 70, 50, 50)
-local r3 = LGF.Rectangle.create(10, 130, 50, 50)
-
 while LGF.Window:active() do
   LGF.Renderer:clearScreen()
 
-  r:changeColor(255, 255, 255)
-  r:draw()
+  if LGF.Mouse:mouseButtonUp(1) == true then
+    print("Left mouse button pressed.")
+  end
 
-  r2:changeColor(255, 255, 255)
-  r2:draw()
+  if LGF.Mouse:mouseButtonUp(2) == true then
+    print("Middle mouse button pressed.")
+  end
 
-  r3:changeColor(255, 255, 2555)
-  r3:draw()
+  if LGF.Mouse:mouseButtonUp(3) == true then
+    print("Right mouse button pressed.")
+  end
 
   LGF.Renderer:changeColorRGB(0, 0, 0)
   LGF.Renderer:render()

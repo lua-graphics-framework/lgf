@@ -150,3 +150,9 @@ SDL_Window *Window::win()
 {
   return window;
 }
+
+// Returns the SDL2 event handle
+SDL_Event Window::getEv()
+{
+  return event; 
+}

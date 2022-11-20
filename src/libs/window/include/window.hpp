@@ -31,7 +31,9 @@ namespace Window
   void renderText(int x, int y, SDL_Texture *texture);
 
   void syncWithLua(lua_State *L);
+
   SDL_Window *win();
+  SDL_Event getEv();
 };
 
 #endif

@@ -18,7 +18,6 @@ lua_State *L;
 SDL_Window *win;
 SDL_Renderer *ren;
 
-Mouse mouse;
 Keyboard keyboard;
 ImageLoader loader;
 FontLoader fontLoader;
@@ -33,8 +32,8 @@ int main(int argc, char *argv[])
   Window::syncWithLua(L);
   Rectangle::syncWithLua(L);
   Renderer::syncWithLua(L);
+  Mouse::syncWithLua(L);
 
-  mouse.syncWithLua(L);
   keyboard.syncWithLua(L);
   loader.syncWithLua(L);
   fontLoader.syncWithLua(L);
