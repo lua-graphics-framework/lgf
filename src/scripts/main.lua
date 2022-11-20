@@ -1,13 +1,15 @@
-require("src.libs.window.window")
+require("src.scripts.lgf")
 
-window.create("LGF Test", 1280, 720)
-window:changeColor(0, 0, 0)
-window:sync(60)
+LGF.Window.create("Lua Graphics Framework", 1280, 720)
+LGF.Window:sync(60)
 
-while window:active() do
-  window:clear()
-  window:render()
-  window:update()
+LGF.Renderer.new()
+
+while LGF.Window:active() do
+  LGF.Renderer:clearScreen()
+  LGF.Renderer:render()
+
+  LGF.Window:update()
 end
 
-window:close()
+LGF.Window:close()

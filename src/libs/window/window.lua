@@ -22,7 +22,7 @@ function window:setIcon(path)
 end
 
 function window:new()
-  create(self.width, self.height, self.title)
+  windowCreate(self.width, self.height, self.title)
 end
 
 function window:vsyncOn()

@@ -5,14 +5,13 @@
 #include <SDL.h>
 #include <lua.hpp>
 
-class rectangle
+namespace Rectangle
 {
-public:
-  static int create(lua_State *L);
-  static int changeColor(lua_State *L);
-  static int draw(lua_State *L);
+  int create(lua_State *L);
+  int changeColor(lua_State *L);
+  int draw(lua_State *L);
 
-  void bindWithLua(lua_State *L);
+  void syncWithLua(lua_State *L);
 };
 
 #endif

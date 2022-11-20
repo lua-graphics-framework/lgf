@@ -11,9 +11,11 @@ set(IMAGE_SRCS src/libs/image/image.cpp)
 set(KEYBOARD_SRCS src/libs/keyboard/keyboard.cpp)
 set(MOUSE_SRCS src/libs/mouse/mouse.cpp)
 set(RECTANGLE_SRCS src/libs/rectangle/rectangle.cpp)
+set(RENDERER_SRCS src/libs/renderer/renderer.cpp)
 set(WINDOW_SRCS src/libs/window/window.cpp)
 
-set(SRCS src/main.cpp ${FONT_SRCS} ${IMAGE_SRCS} ${KEYBOARD_SRCS} ${MOUSE_SRCS} ${RECTANGLE_SRCS} ${WINDOW_SRCS})
+set(SRCS src/main.cpp ${FONT_SRCS} ${IMAGE_SRCS} ${KEYBOARD_SRCS} ${MOUSE_SRCS} 
+  ${RECTANGLE_SRCS} ${WINDOW_SRCS} ${RENDERER_SRCS})
 
 add_subdirectory(external/SDL)
 add_subdirectory(external/SDL_image)

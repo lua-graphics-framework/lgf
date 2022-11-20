@@ -6,6 +6,7 @@
 #include <SDL.h>
 
 #include "libs/window/include/window.hpp"
+#include "libs/renderer/include/renderer.hpp"
 #include "libs/rectangle/include/rectangle.hpp"
 #include "libs/mouse/include/mouse.hpp"
 #include "libs/keyboard/include/keyboard.hpp"
@@ -17,7 +18,6 @@ lua_State *L;
 SDL_Window *win;
 SDL_Renderer *ren;
 
-rectangle rect;
 Mouse mouse;
 Keyboard keyboard;
 ImageLoader loader;
@@ -28,10 +28,12 @@ int main(int argc, char *argv[])
   L = luaL_newstate();
   luaL_openlibs(L);
 
-  Window::config(win, ren);
-  Window::syncWithLua(L);
+  Window::config(win);
 
-  rect.bindWithLua(L);
+  Window::syncWithLua(L);
+  Rectangle::syncWithLua(L);
+  Renderer::syncWithLua(L);
+
   mouse.syncWithLua(L);
   keyboard.syncWithLua(L);
   loader.syncWithLua(L);
