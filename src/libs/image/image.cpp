@@ -11,6 +11,7 @@
 
 std::vector<SDL_Texture *> textures;
 
+// Loads an image from a filepath
 int ImageLoader::loadImage(lua_State *L)
 {
   const char *path = lua_tostring(L, 1);
@@ -21,6 +22,7 @@ int ImageLoader::loadImage(lua_State *L)
   return 0;
 }
 
+// Draws that image
 int ImageLoader::drawImage(lua_State *L)
 {
   int x = lua_tonumber(L, 1);
