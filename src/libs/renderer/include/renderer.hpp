@@ -9,5 +9,8 @@ namespace Renderer
   int render(lua_State *L);
   int changeColorRGB(lua_State *L);
 
+  void setDrawColor(int r, int g, int b);
+  void renderRect(SDL_Rect rect);
+
   void syncWithLua(lua_State *L);
 }

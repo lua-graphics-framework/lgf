@@ -30,6 +30,15 @@ void Window::config(SDL_Window *win)
   }
 }
 
+// Called before the window's renderer is cleared
+void Window::beforeClear()
+{
+  if (limit > 0)
+  {
+    frameStart = SDL_GetTicks();
+  }
+}
+
 // Actually creates the main SDL2 window
 int Window::create(lua_State *L)
 {
@@ -68,6 +77,8 @@ int Window::create(lua_State *L)
 int Window::active(lua_State *L)
 {
   lua_pushboolean(L, windowActive);
+  beforeClear();
+  
   return 1;
 }
 
@@ -81,11 +92,6 @@ int Window::sync(lua_State *L)
 // Updates the window
 int Window::update(lua_State *L)
 {
-  if (limit > 0)
-  {
-    frameStart = SDL_GetTicks();
-  }
-
   // Event handling
   if (SDL_PollEvent(&event))
   {

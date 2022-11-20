@@ -1,17 +1,20 @@
 rectangle = {}
 rectangle.__index = rectangle
 
+local idx = -1
+
 function rectangle.create(x, y, w, h)
   local self = setmetatable({}, rectangle)
+  idx = idx + 1
 
   self.x = x
   self.y = y
   self.w = w
   self.h = h
-  
-  self:new()
+  self.idx = idx
 
-  return rectangle
+  self:new()
+  return self
 end
 
 function rectangle:new()
@@ -23,5 +26,5 @@ function rectangle:changeColor(r, g, b)
 end
 
 function rectangle:draw()
-  drawRectangle();
+  drawRectangle(self.idx)
 end

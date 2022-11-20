@@ -2,7 +2,7 @@ renderer = {}
 renderer.__index = renderer
 
 function renderer.new()
-  setmetatable({}, renderer)
+  local self = setmetatable({}, renderer)
   create()
 
   return self

@@ -67,6 +67,18 @@ int Renderer::changeColorRGB(lua_State *L)
   return 0;
 }
 
+// Sets the renderer's draw color
+void Renderer::setDrawColor(int r, int g, int b)
+{
+  SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+}
+
+// Renders a rectangle
+void Renderer::renderRect(SDL_Rect rect)
+{
+  SDL_RenderFillRect(renderer, &rect);
+}
+
 // Pushes all of these functions to the Lua stack to be callable by Lua
 void Renderer::syncWithLua(lua_State *L)
 {

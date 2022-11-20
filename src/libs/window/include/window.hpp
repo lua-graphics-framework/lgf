@@ -11,6 +11,7 @@
 namespace Window
 {
   void config(SDL_Window *window);
+  void beforeClear();
 
   int create(lua_State *L);
   int active(lua_State *L);

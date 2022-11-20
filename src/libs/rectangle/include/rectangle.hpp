@@ -1,8 +1,4 @@
 #pragma once
-#ifndef RECTANGLE_HPP
-#define RECTANGLE_HPP
-
-#include <SDL.h>
 #include <lua.hpp>
 
 namespace Rectangle
@@ -13,5 +9,3 @@ namespace Rectangle
 
   void syncWithLua(lua_State *L);
 };
-
-#endif
