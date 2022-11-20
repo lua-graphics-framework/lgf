@@ -8,35 +8,34 @@
 #include <SDL_ttf.h>
 #include <lua.hpp>
 
-class window
+namespace Window
 {
-public:
-  window(SDL_Window *window, SDL_Renderer *renderer);
+  void config(SDL_Window *window, SDL_Renderer *renderer);
 
-  static int create(lua_State *L);
-  static int isCloseRequested(lua_State *L);
+  int create(lua_State *L);
+  int active(lua_State *L);
 
-  static int sync(lua_State *L);
-  static int update(lua_State *L);
+  int sync(lua_State *L);
+  int update(lua_State *L);
 
-  static int setVSync(lua_State *L);
-  static int setIcon(lua_State *L);
+  int setVSync(lua_State *L);
+  int setIcon(lua_State *L);
 
-  static int clearScreen(lua_State *L);
-  static int render(lua_State *L);
+  int clearScreen(lua_State *L);
+  int render(lua_State *L);
 
-  static void setDrawColor(int r, int g, int b);
-  static void renderRect(SDL_Rect rect);
+  void setDrawColor(int r, int g, int b);
+  void renderRect(SDL_Rect rect);
 
-  static int changeColorRGB(lua_State *L);
-  static int close(lua_State *L);
+  int changeColorRGB(lua_State *L);
+  int close(lua_State *L);
 
-  static SDL_Texture *loadImage(const char *path);
-  static void drawImage(int x, int y, int w, int h, SDL_Texture *texture);
+  SDL_Texture *loadImage(const char *path);
+  void drawImage(int x, int y, int w, int h, SDL_Texture *texture);
 
-  static TTF_Font *loadFont(const char *path, int size);
-  static SDL_Texture *drawText(const char *text, TTF_Font *font);
-  static void renderText(int x, int y, SDL_Texture *texture);
+  TTF_Font *loadFont(const char *path, int size);
+  SDL_Texture *drawText(const char *text, TTF_Font *font);
+  void renderText(int x, int y, SDL_Texture *texture);
 
   void syncWithLua(lua_State *L);
 };

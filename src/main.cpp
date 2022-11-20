@@ -14,10 +14,9 @@
 
 lua_State *L;
 
-SDL_Window *displayWindow;
-SDL_Renderer *renderer;
+SDL_Window *win;
+SDL_Renderer *ren;
 
-window win(displayWindow, renderer);
 rectangle rect;
 Mouse mouse;
 Keyboard keyboard;
@@ -29,7 +28,9 @@ int main(int argc, char *argv[])
   L = luaL_newstate();
   luaL_openlibs(L);
 
-  win.syncWithLua(L);
+  Window::config(win, ren);
+  Window::syncWithLua(L);
+
   rect.bindWithLua(L);
   mouse.syncWithLua(L);
   keyboard.syncWithLua(L);

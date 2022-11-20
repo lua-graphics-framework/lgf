@@ -13,8 +13,8 @@ function window.create(title, width, height)
   return self
 end
 
-function window:isCloseRequested()
-  return isCloseRequested()
+function window:active()
+  return active()
 end
 
 function window:setIcon(path)
@@ -22,7 +22,7 @@ function window:setIcon(path)
 end
 
 function window:new()
-  create(self.title, self.width, self.height)
+  create(self.width, self.height, self.title)
 end
 
 function window:vsyncOn()
@@ -34,7 +34,7 @@ function window:vsyncOff()
 end
 
 function window:changeColor(r, g, b)
-  windowChangeColor(r, g, b)
+  changeColorRGB(r, g, b)
 end
 
 function window:sync(fps)
@@ -46,13 +46,13 @@ function window:update()
 end
 
 function window:clear()
-  clearScreen()
+  clear()
 end
 
 function window:render()
-display()
+  render()
 end
 
 function window:close()
-close()
+  close()
 end

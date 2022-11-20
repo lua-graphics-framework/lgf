@@ -28,13 +28,13 @@ int rectangle::changeColor(lua_State *L)
   int g = lua_tonumber(L, 2);
   int b = lua_tonumber(L, 3);
 
-  window::setDrawColor(r, g, b);
+  // window::setDrawColor(r, g, b);
   return 0;
 }
 
 int rectangle::draw(lua_State *L)
 {
-  window::renderRect(currentRect);
+  // window::renderRect(currentRect);
   return 0;
 }
 

@@ -1,172 +1,125 @@
 #include <iostream>
 #include <string>
 
-#include "include/window.hpp"
-
 #include <SDL.h>
 #include <SDL_image.h>
-#include <SDL_ttf.h>
 
-#include <lua.hpp>
+#include "include/window.hpp"
 
-#include "../keyboard/include/keyboard.hpp"
-#include "../keyboard/include/keycode.hpp"
+// Window creation globals
+bool windowCreated = false;
+SDL_Window *window;
+SDL_Renderer *renderer;
 
-#include "../mouse/include/mouse.hpp"
-#include "../image/include/image.hpp"
+// Regular globals
+bool windowActive = true;
+bool vsync = false;
 
-SDL_Event sdlEvent;
-bool windowOpen = true;
+SDL_Event event;
+int limit{}; // fps limit
 
+// FPS limiting
+const double frameDelay = 1000 / 60;
+double frameTime;
 Uint32 frameStart;
-int frameTime;
-int frameDelay;
 
-bool closeRequested = false;
-int fpsLimit = 0;
+// Window color
+int r{}, g{}, b{};
 
-SDL_Window *sdlWindow;
-SDL_Renderer *sdlRenderer;
-
-window::window(SDL_Window *window, SDL_Renderer *renderer)
+// Sets the SDL2 window and renderer to the local window module one
+void Window::config(SDL_Window *win, SDL_Renderer *ren)
 {
-  sdlWindow = window;
-  sdlRenderer = renderer;
+  if (!windowCreated && win != nullptr && ren != nullptr)
+  {
+    window = win;
+    renderer = ren;
+  }
 }
 
-int window::create(lua_State *L)
+// Actually creates the main SDL2 window
+int Window::create(lua_State *L)
 {
-  const char *title = lua_tostring(L, 1);
-  int width = lua_tonumber(L, 2);
-  int height = lua_tonumber(L, 3);
+  if (!windowCreated)
+  {
+    windowCreated = true;
 
-  SDL_Init(SDL_INIT_EVERYTHING);
-  IMG_Init(IMG_INIT_PNG);
-  TTF_Init();
+    // Get Lua parameters
+    unsigned int width = lua_tointeger(L, 1);
+    unsigned int height = lua_tointeger(L, 2);
+    const char *title = lua_tostring(L, 3);
 
-  sdlWindow = SDL_CreateWindow(
+    SDL_Init(SDL_INIT_VIDEO);
+
+    // Creating the window
+    window = SDL_CreateWindow(
       title,
       SDL_WINDOWPOS_CENTERED,
       SDL_WINDOWPOS_CENTERED,
       width,
       height,
-      SDL_WINDOW_SHOWN);
+      SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE
+    );
 
-  if (!sdlWindow)
-  {
-    std::cout << "Failed to create a window\n";
-    windowOpen = false;
-  }
+    if (!window)
+    {
+      std::cout << "Fatal Error: Failed trying to create a window. Do you have the right parameters?\n";
+      exit(1);
+    }
 
-  sdlRenderer = SDL_CreateRenderer(sdlWindow, -1, SDL_RENDERER_ACCELERATED);
+    // Creating the renderer
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-  if (!sdlRenderer)
-  {
-    std::cout << "Failed to create a renderer.\n";
-    windowOpen = false;
+    if (!renderer)
+    {
+      std::cout << "Fatal Error: Failed trying to create a renderer. Do you have the right window parameters?\n";
+      exit(1);
+    }
+
+    // Set to default background color
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    SDL_RenderPresent(renderer);
   }
 
   return 0;
 }
 
-int window::isCloseRequested(lua_State *L)
+// Returns a boolean value determining if the window should stay open
+int Window::active(lua_State *L)
 {
-  lua_pushboolean(L, closeRequested);
+  lua_pushboolean(L, windowActive);
   return 1;
 }
 
-int window::setVSync(lua_State *L)
+// Switches the FPS limit to the one provided
+int Window::sync(lua_State *L)
 {
-  int mode = lua_tonumber(L, 1);
-
-  if (mode == 0)
-  {
-    SDL_RenderSetVSync(sdlRenderer, 0);
-  }
-  else if (mode == 1)
-  {
-    SDL_RenderSetVSync(sdlRenderer, 1);
-  }
-
+  limit = lua_tonumber(L, 1);
   return 0;
 }
 
-int window::setIcon(lua_State *L)
+// Updates the window
+int Window::update(lua_State *L)
 {
-  const char *path = lua_tostring(L, 1);
-
-  SDL_Surface *icon = IMG_Load(path);
-  SDL_SetWindowIcon(sdlWindow, icon);
-
-  SDL_FreeSurface(icon);
-
-  return 0;
-}
-
-int window::sync(lua_State *L)
-{
-  int fps = lua_tonumber(L, 1);
-
-  fpsLimit = fps;
-  frameDelay = 1000 / fpsLimit;
-
-  return 0;
-}
-
-int window::update(lua_State *L)
-{
-  if (fpsLimit != 0)
+  if (limit > 0)
   {
     frameStart = SDL_GetTicks();
   }
 
-  frameStart = SDL_GetTicks();
-
-  SDL_PollEvent(&sdlEvent);
-  if (sdlEvent.type == SDL_QUIT)
+  // Event handling
+  if (SDL_PollEvent(&event))
   {
-    closeRequested = true;
-  }
-  else if (sdlEvent.type == SDL_MOUSEBUTTONUP)
-  {
-    if (sdlEvent.button.button == SDL_BUTTON_LEFT)
+    if (event.type == SDL_QUIT)
     {
-      Mouse::button = 1;
-      Mouse::buttonMode = 1;
-    }
-    else if (sdlEvent.button.button == SDL_BUTTON_MIDDLE)
-    {
-      Mouse::button = 2;
-      Mouse::buttonMode = 1;
-    }
-    else if (sdlEvent.button.button == SDL_BUTTON_RIGHT)
-    {
-      Mouse::button = 3;
-      Mouse::buttonMode = 1;
-    }
-  }
-  else if (sdlEvent.type == SDL_MOUSEBUTTONDOWN)
-  {
-    if (sdlEvent.button.button == SDL_BUTTON_LEFT)
-    {
-      Mouse::button = 1;
-      Mouse::buttonMode = 2;
-    }
-    else if (sdlEvent.button.button == SDL_BUTTON_MIDDLE)
-    {
-      Mouse::button = 2;
-      Mouse::buttonMode = 2;
-    }
-    else if (sdlEvent.button.button == SDL_BUTTON_RIGHT)
-    {
-      Mouse::button = 3;
-      Mouse::buttonMode = 2;
+      windowActive = false;
     }
   }
 
-  if (fpsLimit != 0)
+  // FPS limiting
+  if (limit > 0)
   {
     frameTime = SDL_GetTicks() - frameStart;
+
     if (frameDelay > frameTime)
     {
       SDL_Delay(frameDelay - frameTime);
@@ -176,112 +129,69 @@ int window::update(lua_State *L)
   return 0;
 }
 
-SDL_Texture *window::loadImage(const char *path)
+// Enables VSync
+int Window::setVSync(lua_State *L)
 {
-  SDL_Surface *image = IMG_Load(path);
-  SDL_Texture *texture = SDL_CreateTextureFromSurface(sdlRenderer, image);
-
-  SDL_FreeSurface(image);
-  return texture;
-}
-
-void window::drawImage(int x, int y, int w, int h, SDL_Texture *texture)
-{
-  SDL_Rect pos = {x, y, w, h};
-  SDL_RenderCopy(sdlRenderer, texture, NULL, &pos);
-}
-
-int window::clearScreen(lua_State *L)
-{
-  SDL_RenderClear(sdlRenderer);
+  SDL_RenderSetVSync(renderer, lua_toboolean(L, 1));
   return 0;
 }
 
-int window::render(lua_State *L)
+// Sets the window's custom icon
+int Window::setIcon(lua_State *L)
 {
-  SDL_RenderPresent(sdlRenderer);
+  // TODO:
   return 0;
 }
 
-int window::changeColorRGB(lua_State *L)
+// Clears the renderer's display
+int Window::clearScreen(lua_State *L)
 {
-  int r = lua_tonumber(L, 1);
-  int g = lua_tonumber(L, 2);
-  int b = lua_tonumber(L, 3);
+  SDL_SetRenderDrawColor(renderer, r, g, b, 255);
+  SDL_RenderClear(renderer);
+  return 0;
+}
 
-  SDL_SetRenderDrawColor(sdlRenderer, r, g, b, 255);
-  SDL_RenderClear(sdlRenderer);
-  SDL_RenderPresent(sdlRenderer);
+// Renders everything to the screen
+int Window::render(lua_State *L)
+{
+  SDL_RenderPresent(renderer);
+  return 0;
+}
+
+// Changes the window's background color to the color provided
+int Window::changeColorRGB(lua_State *L)
+{
+  r = lua_tonumber(L, 1);
+  g = lua_tonumber(L, 2);
+  b = lua_tonumber(L, 3);
 
   return 0;
 }
 
-int window::close(lua_State *L)
+// Closes the window
+int Window::close(lua_State *L)
 {
-  SDL_DestroyRenderer(sdlRenderer);
-  SDL_DestroyWindow(sdlWindow);
-
-  for (unsigned int i = 0; i < ImageLoader::textures.size(); i++)
+  if (window && renderer)
   {
-    SDL_DestroyTexture(ImageLoader::textures[i]);
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
+    SDL_Quit();
   }
 
-  ImageLoader::textures.clear();
-
-  TTF_Quit();
-  IMG_Quit();
-  SDL_Quit();
-
   return 0;
 }
 
-TTF_Font *window::loadFont(const char *path, int size)
-{
-  TTF_Font *font = TTF_OpenFont(path, size);
-  return font;
-}
-
-SDL_Texture *window::drawText(const char *text, TTF_Font *font)
-{
-  SDL_Color color = {255, 255, 255};
-
-  SDL_Surface *surface = TTF_RenderText_Solid(font, text, color);
-  SDL_Texture *texture = SDL_CreateTextureFromSurface(sdlRenderer, surface);
-
-  SDL_FreeSurface(surface);
-  return texture;
-}
-
-void window::renderText(int x, int y, SDL_Texture *texture)
-{
-  int texW, texH;
-  SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
-
-  SDL_Rect pos = {x, y, texW, texH};
-  SDL_RenderCopy(sdlRenderer, texture, NULL, &pos);
-}
-
-void window::setDrawColor(int r, int g, int b)
-{
-  SDL_SetRenderDrawColor(sdlRenderer, r, g, b, 255);
-}
-
-void window::renderRect(SDL_Rect rect)
-{
-  SDL_RenderFillRect(sdlRenderer, &rect);
-  SDL_SetRenderDrawColor(sdlRenderer, 0, 0, 0, 255);
-}
-
-void window::syncWithLua(lua_State *L)
+// Pushed all of these functions to the Lua stack to be callable by Lua
+void Window::syncWithLua(lua_State *L)
 {
   lua_register(L, "create", create);
+  lua_register(L, "active", active);
   lua_register(L, "sync", sync);
+  lua_register(L, "update", update);
   lua_register(L, "setVSync", setVSync);
   lua_register(L, "setIcon", setIcon);
-  lua_register(L, "update", update);
+  lua_register(L, "clear", clearScreen);
+  lua_register(L, "render", render);
+  lua_register(L, "changeColorRGB", changeColorRGB);
   lua_register(L, "close", close);
-  lua_register(L, "clearScreen", clearScreen);
-  lua_register(L, "display", render);
-  lua_register(L, "isCloseRequested", isCloseRequested);
-  lua_register(L, "windowChangeColor", changeColorRGB);
 }

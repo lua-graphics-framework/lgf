@@ -18,8 +18,8 @@ int FontLoader::loadFont(lua_State *L)
     const char *path = lua_tostring(L, 1);
     int size = lua_tonumber(L, 2);
 
-    TTF_Font *font = window::loadFont(path, size);
-    fonts.push_back(font);
+    // TTF_Font *font = window::loadFont(path, size);
+    // fonts.push_back(font);
 
     return 0;
 }
@@ -29,8 +29,8 @@ int FontLoader::loadText(lua_State *L)
     int index = lua_tonumber(L, 1);
     const char *text = lua_tostring(L, 2);
 
-    SDL_Texture *texture = window::drawText(text, fonts[index]);
-    textures.push_back(texture);
+    // SDL_Texture *texture = window::drawText(text, fonts[index]);
+    // textures.push_back(texture);
 
     return 0;
 }
@@ -41,7 +41,7 @@ int FontLoader::renderText(lua_State *L)
     int x = lua_tonumber(L, 2);
     int y = lua_tonumber(L, 3);
 
-    window::renderText(x, y, textures[index]);
+    // window::renderText(x, y, textures[index]);
     return 0;
 }
 
