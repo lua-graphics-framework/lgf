@@ -27,5 +27,5 @@ include_directories(external/SDL_image)
 include_directories(external/SDL_ttf)
 include_directories(external/lua-5.4.4/src)
 
-add_executable(LuaGraphicsFramework ${SRCS})
+add_library(LuaGraphicsFramework ${SRCS})
 target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua)
