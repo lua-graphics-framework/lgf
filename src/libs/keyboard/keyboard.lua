@@ -1,3 +1,5 @@
+local mod = require("libLuaGraphicsFramework")
+
 require("src.libs.keyboard.keycode")
 
 keyboard = {}
@@ -5,7 +7,7 @@ keyboard.__index = keyboard
 
 function keyboard:keyup(keycode)
   if keycode then
-    if keyup() == keycode then
+    if mod.keyup() == keycode then
       return true
     end
   end
@@ -15,7 +17,7 @@ end
 
 function keyboard:keydown(keycode)
   if keycode then
-    if keydown() == keycode then
+    if mod.keydown() == keycode then
       return true
     end
   end
@@ -24,5 +26,5 @@ function keyboard:keydown(keycode)
 end
 
 function keyboard:poll()
-  pollKeyboard()
+  mod.pollKeyboard()
 end
