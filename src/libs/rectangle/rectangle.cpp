@@ -41,7 +41,7 @@ int Rectangle::draw(lua_State *L)
   return 0;
 }
 
-// Changes the rectangle's position
+// Changes the rectangle's size
 int Rectangle::changeRectangleSize(lua_State *L)
 {
   int idx = lua_tonumber(L, 1);
@@ -52,8 +52,8 @@ int Rectangle::changeRectangleSize(lua_State *L)
   return 0;
 }
 
-// Changes the rectangle's size
-int Rectangle::changeRectangleSize(lua_State *L)
+// Changes the rectangle's position
+int Rectangle::changeRectanglePos(lua_State *L)
 {
   int idx = lua_tonumber(L, 1);
 
