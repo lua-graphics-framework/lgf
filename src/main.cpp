@@ -16,57 +16,21 @@
 SDL_Window *win;
 SDL_Renderer *ren;
 
-luaL_Reg lgf[] =
+int main(int argc, char *argv[])
 {
-  // Window
-  { "windowCreate", Window::create },
-  { "active", Window::active },
-  { "sync", Window::sync },
-  { "update", Window::update },
-  { "setIcon", Window::setIcon },
-  { "close", Window::close },
+  lua_State *L = luaL_newstate();
+  luaL_openlibs(L);
+  
+  Window::syncWithLua(L);
+  Renderer::syncWithLua(L);
+  Rectangle::syncWithLua(L);
+  Mouse::syncWithLua(L);
+  Keyboard::syncWithLua(L);
+  ImageLoader::syncWithLua(L);
+  FontLoader::syncWithLua(L);
+ 
+  luaL_dofile(L, argv[1]);
+  lua_close(L);
 
-  // Renderer
-  { "create", Renderer::create },
-  { "toggleVSync", Renderer::toggleVSync },
-  { "clearScreen", Renderer::clearScreen },
-  { "render", Renderer::render },
-  { "changeColorRGB", Renderer::changeColorRGB },
-
-  // Rectangle
-  { "createRectangle", Rectangle::create },
-  { "changeRectangleColor", Rectangle::changeColor },
-  { "drawRectangle", Rectangle::draw },
-  { "changeRectangleSize", Rectangle::changeRectangleSize },
-  { "changeRectanglePos", Rectangle::changeRectanglePos },
-
-  // Mouse
-  { "mouseButtonDown", Mouse::mouseButtonDown },
-  { "mouseButtonUp", Mouse::mouseButtonUp },
-  { "mousePollEvents", Mouse::pollEvents },
-  { "getMousePosX", Mouse::getMousePosX },
-  { "getMousePosY", Mouse::getMousePosY },
-
-  // Keyboard
-  { "keyup", Keyboard::keyup },
-  { "keydown", Keyboard::keydown },
-  { "pollKeyboard", Keyboard::poll },
-
-  // Image
-  { "loadImage", ImageLoader::loadImage },
-  { "drawImage", ImageLoader::drawImage },
-
-  // Font
-  { "loadFont", FontLoader::loadFont },
-  { "loadText", FontLoader::loadText },
-  { "renderText", FontLoader::renderText },
-
-  NULL, NULL
-};
-
-extern "C" int luaopen_libLuaGraphicsFramework(lua_State *L)
-{
-  Window::config(win);
-  luaL_newlib(L, lgf);
-  return 1;
+  return 0;
 }

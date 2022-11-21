@@ -27,32 +27,12 @@ function window:new()
   mod.windowCreate(self.width, self.height, self.title)
 end
 
-function window:vsyncOn()
-  mod.setVSync(1)
-end
-
-function window:vsyncOff()
-  mod.setVSync(0)
-end
-
-function window:changeColor(r, g, b)
-  mod.changeColorRGB(r, g, b)
-end
-
 function window:sync(fps)
   mod.sync(fps)
 end
 
 function window:update()
   mod.update()
-end
-
-function window:clear()
-  mod.clearScreen()
-end
-
-function window:render()
-  mod.render()
 end
 
 function window:close()
