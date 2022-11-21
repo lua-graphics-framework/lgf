@@ -23,6 +23,14 @@ function rectangle:new()
   mod.createRectangle(self.x, self.y, self.w, self.h)
 end
 
+function rectangle:updatePos()
+  mod.changeRectanglePos(self.idx, self.x, self.y)
+end
+
+function rectangle:updateSize()
+  mod.changeRectangleSize(self.idx, self.w, self.h)
+end
+
 function rectangle:changeColor(r, g, b)
   mod.changeRectangleColor(r, g, b);
 end

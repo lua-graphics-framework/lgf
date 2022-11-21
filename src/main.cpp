@@ -37,6 +37,8 @@ luaL_Reg lgf[] =
   { "createRectangle", Rectangle::create },
   { "changeRectangleColor", Rectangle::changeColor },
   { "drawRectangle", Rectangle::draw },
+  { "changeRectangleSize", Rectangle::changeRectangleSize },
+  { "changeRectanglePos", Rectangle::changeRectanglePos },
 
   // Mouse
   { "mouseButtonDown", Mouse::mouseButtonDown },
