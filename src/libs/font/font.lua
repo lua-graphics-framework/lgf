@@ -1,5 +1,3 @@
-local mod = require("libLuaGraphicsFramework")
-
 font = {}
 font.__index = font
 
@@ -24,7 +22,7 @@ function text.new(txt, r, g, b)
 end
 
 function text:draw(x, y)
-  mod.renderText(self.idx, x, y)
+  renderText(self.idx, x, y)
 end
 
 function font.create()
@@ -38,9 +36,9 @@ function font.create()
 end
 
 function font:loadFont(fontPath, size)
-  mod.loadFont(fontPath, size)
+  loadFont(fontPath, size)
 end
 
 function font:loadText(text)
-  mod.loadText(text.idx, text.text, text.r, text.g, text.b)
+  loadText(text.idx, text.text, text.r, text.g, text.b)
 end

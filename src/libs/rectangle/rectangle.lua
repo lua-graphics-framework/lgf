@@ -1,5 +1,3 @@
-local mod = require("libLuaGraphicsFramework")
-
 rectangle = {}
 rectangle.__index = rectangle
 
@@ -20,21 +18,21 @@ function rectangle.create(x, y, w, h)
 end
 
 function rectangle:new()
-  mod.createRectangle(self.x, self.y, self.w, self.h)
+  createRectangle(self.x, self.y, self.w, self.h)
 end
 
 function rectangle:updatePos()
-  mod.changeRectanglePos(self.idx, self.x, self.y)
+  changeRectanglePos(self.idx, self.x, self.y)
 end
 
 function rectangle:updateSize()
-  mod.changeRectangleSize(self.idx, self.w, self.h)
+  changeRectangleSize(self.idx, self.w, self.h)
 end
 
 function rectangle:changeColor(r, g, b)
-  mod.changeRectangleColor(r, g, b);
+  changeRectangleColor(r, g, b);
 end
 
 function rectangle:draw()
-  mod.drawRectangle(self.idx)
+  drawRectangle(self.idx)
 end

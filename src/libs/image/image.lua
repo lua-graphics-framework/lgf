@@ -1,5 +1,3 @@
-local mod = require("libLuaGraphicsFramework")
-
 image = {}
 image.__index = image
 
@@ -15,10 +13,10 @@ function image.load(x, y, w, h, path)
   self.h = h
   self.index = index
 
-  mod.loadImage(path)
+  loadImage(path)
   return self
 end
 
 function image:draw()
-  mod.drawImage(self.x, self.y, self.w, self.h, self.index)
+  drawImage(self.x, self.y, self.w, self.h, self.index)
 end

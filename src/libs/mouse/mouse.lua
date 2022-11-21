@@ -1,5 +1,3 @@
-local mod = require("libLuaGraphicsFramework")
-
 mouse = {}
 mouse.__index = mouse
 
@@ -20,17 +18,17 @@ function clearEvents()
 end
 
 function mouse:poll()
-  mod.mousePollEvents()
+  mousePollEvents()
 end
 
 function mouse:mouseButtonDown(btn)
-  return mod.mouseButtonDown(btn)
+  return mouseButtonDown(btn)
 end
 
 function mouse:mouseButtonUp(btn)
-  return mod.mouseButtonUp(btn)
+  return mouseButtonUp(btn)
 end
 
 function mouse:getCursorPos()
-  return { mod.getMousePosX(), mod.getMousePosY() }
+  return { getMousePosX(), getMousePosY() }
 end

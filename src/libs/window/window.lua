@@ -1,5 +1,3 @@
-local mod = require("libLuaGraphicsFramework")
-
 window = {}
 window.__index = window
 
@@ -16,25 +14,25 @@ function window.create(title, width, height)
 end
 
 function window:active()
-  return mod.active()
+  return active()
 end
 
 function window:setIcon(path)
-  mod.setIcon(path)
+  setIcon(path)
 end
 
 function window:new()
-  mod.windowCreate(self.width, self.height, self.title)
+  windowCreate(self.width, self.height, self.title)
 end
 
 function window:sync(fps)
-  mod.sync(fps)
+  sync(fps)
 end
 
 function window:update()
-  mod.update()
+  update()
 end
 
 function window:close()
-  mod.close()
+  close()
 end

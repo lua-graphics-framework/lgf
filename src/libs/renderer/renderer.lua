@@ -1,29 +1,27 @@
-local mod = require("libLuaGraphicsFramework")
-
 renderer = {}
 renderer.__index = renderer
 
 function renderer.new()
   local self = setmetatable({}, renderer)
-  mod.create()
+  create()
 
   return self
 end
 
 function renderer:toggleVSync()
-  mod.toggleVSync()
+  toggleVSync()
 end
 
 function renderer:clearScreen()
-  mod.clearScreen()
+  clearScreen()
 end
 
 function renderer:render()
-  mod.render()
+  render()
 end
 
 function renderer:changeColorRGB(r, g, b)
-  mod.changeColorRGB(r, g, b)
+  changeColorRGB(r, g, b)
 end
 
 return renderer
