@@ -48,7 +48,7 @@ function window:update()
 end
 
 function window:clear()
-  mod.clear()
+  mod.clearScreen()
 end
 
 function window:render()

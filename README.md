@@ -14,7 +14,7 @@ Currently, only building on Windows has been tested. Although, it is very possib
 I currently do not recommend using LGF for commercial projects quite yet. It is a very new library with very little features. Here is a roadmap listed below:
 
 - [x] Core modules (window, rectangle, mouse, image, etc.)
-- [ ] CLI tools
+- [x] CLI tools
 - [ ] Packaging system
 - [ ] Sound module
 - [ ] Custom LGF renderer
