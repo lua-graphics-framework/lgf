@@ -29,9 +29,14 @@ int ImageLoader::drawImage(lua_State *L)
   int y = lua_tonumber(L, 2);
   int w = lua_tonumber(L, 3);
   int h = lua_tonumber(L, 4);
+  
+  int srcX = lua_tonumber(L, 5);
+  int srcY = lua_tonumber(L, 6);
+  int srcWidth = lua_tonumber(L, 7);
+  int srcHeight = lua_tonumber(L, 8);
 
   int textureIndex = lua_tonumber(L, 5);
-  Renderer::drawImg(x, y, w, h, textures[textureIndex]);
+  Renderer::drawImg(x, y, w, h, srcX, srcY, srcWidth, srcHeight, textures[textureIndex]);
 
   return 0;
 }

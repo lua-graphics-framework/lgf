@@ -97,9 +97,12 @@ SDL_Texture *Renderer::loadImg(const char *filepath)
 }
 
 // Draws the loaded image
-void Renderer::drawImg(int x, int y, unsigned int width, unsigned int height, SDL_Texture *texture)
+void Renderer::drawImg(int x, int y, unsigned int width, unsigned int height, int srcX,
+  int srcY, int srcW, int srcH, SDL_Texture *texture)
 {
-  SDL_Rect pos = {x, y, (int)width, (int)height};
+  SDL_Rect pos = { x, y, (int)width, (int)height };
+  SDL_Rect src = { srcX, srcY, srcW, srcH };
+
   SDL_RenderCopy(renderer, texture, nullptr, &pos);
 }
 

@@ -11,7 +11,12 @@ function image.load(x, y, w, h, path)
   self.y = y
   self.w = w
   self.h = h
-  self.index = index
+  self._index = index
+
+  self.srcX = 0
+  self.srcY = 0
+  self.srcWidth = w
+  self.srcHeight = h
 
   loadImage(path)
   return self
