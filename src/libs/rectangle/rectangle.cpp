@@ -69,4 +69,6 @@ void Rectangle::syncWithLua(lua_State *L)
   lua_register(L, "createRectangle", create);
   lua_register(L, "changeRectangleColor", changeColor);
   lua_register(L, "drawRectangle", draw);
+  lua_register(L, "changeRectangleSize", changeRectangleSize);
+  lua_register(L, "changeRectanglePos", changeRectanglePos);
 }
