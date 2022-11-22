@@ -43,7 +43,7 @@ int FontLoader::loadText(lua_State *L)
   int y = lua_tonumber(L, 7);
 
   SDL_Texture *texture = Renderer::loadText(str, r, g, b, fonts[index]);
-  Text txt = { texture, { r, g, b }, str, x, y };
+  Text txt = { texture, { (Uint8)r, (Uint8)g, (Uint8)b }, str, x, y };
 
   text.push_back(txt);
   return 0;
