@@ -8,7 +8,7 @@ function window.create(title, width, height)
   self.width = width
   self.height = height
 
-  self:new()
+  windowCreate(self.width, self.height, self.title)
 
   return self
 end
@@ -19,10 +19,6 @@ end
 
 function window:setIcon(path)
   setIcon(path)
-end
-
-function window:new()
-  windowCreate(self.width, self.height, self.title)
 end
 
 function window:sync(fps)

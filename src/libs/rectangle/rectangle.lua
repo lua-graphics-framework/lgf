@@ -13,12 +13,8 @@ function rectangle.create(x, y, w, h)
   self.h = h
   self.idx = idx
 
-  self:new()
-  return self
-end
-
-function rectangle:new()
   createRectangle(self.x, self.y, self.w, self.h)
+  return self
 end
 
 function rectangle:updatePos()

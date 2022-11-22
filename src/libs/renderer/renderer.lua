@@ -1,9 +1,9 @@
 renderer = {}
 renderer.__index = renderer
 
-function renderer.new()
+function renderer.create()
   local self = setmetatable({}, renderer)
-  create()
+  createRenderer()
 
   return self
 end

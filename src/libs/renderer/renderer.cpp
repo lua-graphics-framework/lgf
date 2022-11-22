@@ -130,7 +130,7 @@ void Renderer::drawText(int x, int y, SDL_Texture *text)
 // Pushes all of these functions to the Lua stack to be callable by Lua
 void Renderer::syncWithLua(lua_State *L)
 {
-  lua_register(L, "create", create);
+  lua_register(L, "createRenderer", create);
   lua_register(L, "toggleVSync", toggleVSync);
   lua_register(L, "clearScreen", clearScreen);
   lua_register(L, "render", render);
