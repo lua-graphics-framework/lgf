@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.11)
 
 project(LuaGraphicsFramework)
 set(PROJECT_VERSION 0.1)
@@ -28,5 +28,10 @@ include_directories(external/SDL_ttf)
 include_directories(external/lua-5.4.4/src)
 
 add_executable(LuaGraphicsFramework ${SRCS})
-target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua -static-libstdc++ -static-libgcc)
-target_link_libraries(LuaGraphicsFramework -static)
+
+if(MSVC OR MINGW)
+  target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua -static-libstdc++ -static-libgcc)
+  target_link_libraries(LuaGraphicsFramework -static)
+elseif(LINUX)
+  target_link_libraries(LuaGraphicsFramework SDL2main SDL2 SDL2_image SDL2_ttf lua -static-libstdc++ -static-libgcc)
+endif(MSVC OR MINGW)

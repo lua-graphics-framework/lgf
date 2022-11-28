@@ -33,6 +33,18 @@ After that, run these commands to build LGF and its dependencies:
 
 Finally, move the .dll files with the `LuaGraphicsFramework.exe` file. Now, you are ready to use LGF. Again, the CLI makes this a lot easier.
 
+### **Linux**
+On Linux, building LGF is a lot easier. Enter the following commands:
+`sudo apt install libfreetype-dev cmake make gcc g++ -y` - These are Debian/Ubuntu instructions; translate to your Linux distro
+`git clone --recursive https://github.com/lua-graphics-framework/lgf`
+`cd lgf`
+`mkdir build`
+`cd build`
+`cmake ..`
+`make`
+
+Now you can use LGF.
+
 ## **Roadmap & Status**
 I currently do not recommend using LGF for commercial projects quite yet. It is a very new library with very little features. Here is a roadmap listed below:
 
