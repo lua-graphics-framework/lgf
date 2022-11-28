@@ -35,13 +35,13 @@ Finally, move the .dll files with the `LuaGraphicsFramework.exe` file. Now, you 
 
 ### **Linux**
 On Linux, building LGF is a lot easier. Enter the following commands:
-`sudo apt install libfreetype-dev cmake make gcc g++ -y` - These are Debian/Ubuntu instructions; translate to your Linux distro
-`git clone --recursive https://github.com/lua-graphics-framework/lgf`
-`cd lgf`
-`mkdir build`
-`cd build`
-`cmake ..`
-`make`
+- `sudo apt install libfreetype-dev cmake make gcc g++ -y` - These are Debian/Ubuntu instructions; translate to your Linux distro
+- `git clone --recursive https://github.com/lua-graphics-framework/lgf`
+- `cd lgf`
+- `mkdir build`
+- `cd build`
+- `cmake ..`
+- `make`
 
 Now you can use LGF.
 
