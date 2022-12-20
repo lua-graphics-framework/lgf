@@ -39,3 +39,7 @@ pub fn C.luaL_openlibs(L &C.lua_State)
 pub fn C.luaL_dofile(L &C.lua_State, filename &char)
 pub fn C.lua_close(L &C.lua_State)
 pub fn C.lua_register(L &C.lua_State, name &char, func &int)
+pub fn C.lua_pushboolean(L &C.lua_State, b int)
+pub fn C.lua_tointeger(L &C.lua_State, idx int) int
+pub fn C.lua_tonumber(L &C.lua_State, idx int) f64
+pub fn C.lua_tostring(L &C.lua_State, idx int) &char

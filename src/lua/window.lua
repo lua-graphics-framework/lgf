@@ -1,7 +1,7 @@
 window = {}
 window.__index = window
 
-function window.create(title, width, height)
+function window.create(width, height, title)
   local self = setmetatable({}, window)
 
   self.title = title
@@ -11,6 +11,10 @@ function window.create(title, width, height)
   lgf_window_create(self.width, self.height, self.title)
 
   return self
+end
+
+function window:changeColor(r, g, b)
+  lgf_window_change_color(r, g, b)
 end
 
 function window:clear()
@@ -36,3 +40,5 @@ end
 function window:close()
   lgf_window_close()
 end
+
+return window

@@ -13,6 +13,9 @@ mut:
 	frame_start f64
 	frame_time f64
 	event sdl.Event
+	r u8
+	g u8
+	b u8
 }
 
 // Creates a new window
@@ -20,24 +23,29 @@ pub fn window_create(width u32, height u32, title &char) Window {
 	sdl.init(sdl.init_video)
 
 	window := sdl.create_window(title, sdl.windowpos_centered, 
-		sdl.windowpos_centered, int(width), int(height), u32(sdl.WindowFlags.shown))
+		sdl.windowpos_centered, int(width), int(height), 0)
 	
 	renderer := sdl.create_renderer(window, -1, u32(sdl.RendererFlags.accelerated))
 
-	return Window {
-		window,
-		renderer,
-		true,
-		-1,
-		0,
-		0,
-		sdl.Event {}
+	unsafe {
+		return Window {
+			window,
+			renderer,
+			true,
+			-1,
+			0,
+			0,
+			sdl.Event {},
+			u8(0),
+			u8(0),
+			u8(0)
+		}
 	}
 }
 
 // Clears the window's renderer
 pub fn (mut w Window) clear() {
-	sdl.set_render_draw_color(w.renderer, 0, 0, 0, 255)
+	sdl.set_render_draw_color(w.renderer, w.r, w.g, w.b, 255)
 	sdl.render_clear(w.renderer)
 }
 
@@ -48,7 +56,9 @@ pub fn (mut w Window) display() {
 
 // Changes the renderer's background color
 pub fn (mut w Window) change_color(r int, g int, b int) {
-	// TODO:
+	w.r = u8(r)
+	w.g = u8(g)
+	w.b = u8(b)
 }
 
 // Returns a boolean determining if the window created should be open
@@ -71,6 +81,13 @@ pub fn (mut w Window) poll() {
 		match w.event.@type {
 			.quit { w.active = false }
 			else {}
+		}
+	}
+
+	if w.fps_limit > 0 {
+		w.frame_time = sdl.get_ticks() - w.frame_start
+		if f64(frame_delay) > w.frame_time {
+			sdl.delay(u32(frame_delay - w.frame_time))
 		}
 	}
 }
