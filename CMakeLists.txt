@@ -17,21 +17,18 @@ set(WINDOW_SRCS src/libs/window/window.cpp)
 set(SRCS src/main.cpp ${FONT_SRCS} ${IMAGE_SRCS} ${KEYBOARD_SRCS} ${MOUSE_SRCS} 
   ${RECTANGLE_SRCS} ${WINDOW_SRCS} ${RENDERER_SRCS})
 
-add_subdirectory(external/SDL)
-add_subdirectory(external/SDL_image)
-add_subdirectory(external/SDL_ttf)
-add_subdirectory(external/lua-5.4.4)
+if(MINGW OR MSVC)
+  add_subdirectory(external/lua-5.4.4)
+  link_directories(external/lib)
 
-include_directories(external/SDL/include)
-include_directories(external/SDL_image)
-include_directories(external/SDL_ttf)
-include_directories(external/lua-5.4.4/src)
+  include_directories(external)
+  include_directories(external/lua-5.4.4/src)
+endif(MINGW OR MSVC)
 
 add_executable(LuaGraphicsFramework ${SRCS})
 
 if(MSVC OR MINGW)
-  target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua -static-libstdc++ -static-libgcc)
-  target_link_libraries(LuaGraphicsFramework -static)
+  target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua)
 elseif(LINUX)
   target_link_libraries(LuaGraphicsFramework SDL2main SDL2 SDL2_image SDL2_ttf lua -static-libstdc++ -static-libgcc)
 endif(MSVC OR MINGW)

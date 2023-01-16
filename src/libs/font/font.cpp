@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include <SDL_ttf.h>
+#include <SDL2/SDL_ttf.h>
 #include <lua.hpp>
 
 #include "../renderer/include/renderer.hpp"

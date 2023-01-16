@@ -3,7 +3,7 @@
 #define IMAGE_HPP
 
 #include <vector>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <lua.hpp>
 
 namespace ImageLoader

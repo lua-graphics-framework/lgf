@@ -3,7 +3,7 @@
 #include <vector>
 
 #include <lua.hpp>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "libs/window/include/window.hpp"
 #include "libs/renderer/include/renderer.hpp"

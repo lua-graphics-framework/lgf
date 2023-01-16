@@ -2,7 +2,7 @@
 #include <string>
 
 #include <lua.hpp>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "include/keyboard.hpp"
 #include "include/keycode.hpp"

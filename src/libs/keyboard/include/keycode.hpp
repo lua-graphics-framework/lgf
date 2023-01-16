@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #define KEY_Q SDLK_q
 #define KEY_W SDLK_w

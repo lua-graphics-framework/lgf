@@ -2,7 +2,7 @@
 #include <string>
 
 #include <lua.hpp>
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "include/mouse.hpp"
 #include "../window/include/window.hpp"
