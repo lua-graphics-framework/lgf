@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.11)
+cmake_minimum_required(VERSION 3.0)
 
 project(LuaGraphicsFramework)
 set(PROJECT_VERSION 0.1)
@@ -29,6 +29,6 @@ add_executable(LuaGraphicsFramework ${SRCS})
 
 if(MSVC OR MINGW)
   target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua)
-elseif(LINUX)
-  target_link_libraries(LuaGraphicsFramework SDL2main SDL2 SDL2_image SDL2_ttf lua -static-libstdc++ -static-libgcc)
+elseif(UNIX AND NOT APPLE)
+  target_link_libraries(LuaGraphicsFramework SDL2main SDL2 SDL2_image SDL2_ttf lua dl)
 endif(MSVC OR MINGW)

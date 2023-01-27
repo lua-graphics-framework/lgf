@@ -1,6 +1,6 @@
 # A custom CMake build file to build Lua using CMake.
 # NOTE: THIS WAS NOT MADE BY THE LUA DEVELOPERS, instead made by Srevrtt
-cmake_minimum_required(VERSION 3.23)
+cmake_minimum_required(VERSION 3.0)
 project(lua)
 
 set(CMAKE_C_STANDARD 99)

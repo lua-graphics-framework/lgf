@@ -38,7 +38,7 @@ int Renderer::create(lua_State *L)
 int Renderer::toggleVSync(lua_State *L)
 {
   vsync = !vsync;
-  SDL_RenderSetVSync(renderer, vsync);
+  // SDL_RenderSetVSync(renderer, vsync);
   return 0;
 }
 
