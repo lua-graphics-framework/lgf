@@ -1,15 +1,33 @@
 require("src.scripts.lgf")
 
-local wnd = LGF.Window.create("LGF", 1280, 720)
-wnd:sync(60)
+local width = 1280
+local height = 720
+local window = LGF.Window.create("Pong", width, height)
+window:sync(60)
 
 local renderer = LGF.Renderer.create()
-renderer:changeColorRGB(180, 0, 0)
+renderer:changeColorRGB(0, 0, 0)
 
-while wnd:active() do
+local paddle1 = LGF.Rectangle.create(20, height/2 - 75, 5, 150) -- alligned paddle correctly
+local paddle2 = LGF.Rectangle.create(1260, height/2 - 75, 5, 150) -- alligned paddle correctly
+
+while window:active() do
   renderer:clearScreen()
+
+  keyboard:poll()
+  if LGF.Keyboard:keydown(keycode.KEY_S) then
+    paddle1.w = paddle1.w + 1
+    paddle1:updateSize() -- update position
+  end
+
+  paddle1:changeColor(255, 255, 255)
+  paddle1:draw()
+
+  paddle2:changeColor(255, 255, 255)
+  paddle2:draw()
+
   renderer:render()
-  wnd:update()
+  window:update()
 end
 
-wnd:close()
+window:close()

@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
   FontLoader::syncWithLua(L);
  
   luaL_dofile(L, argv[1]);
+  std::cout << lua_tostring(L, -1) << std::endl;
   lua_close(L);
 
   return 0;
