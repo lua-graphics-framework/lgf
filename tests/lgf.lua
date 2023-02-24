@@ -11,6 +11,13 @@ renderer:changeColorRGB(0, 0, 0)
 while window:active() do
   renderer:clearScreen()
   renderer:render()
+
+  -- mouse:poll()
+
+  if mouse:mouseButtonUp(1) == true then
+    print("??")
+  end
+
   window:update()
 end
 

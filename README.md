@@ -70,7 +70,7 @@ I currently do not recommend using LGF for commercial projects quite yet. It is 
 
 ## **Bug Fixing**
 
-- [ ] Mouse button up does not work
+- [x] Mouse button up does not work
 - [ ] Segmentation Fault when drawing unloaded text
 - [ ] `updatePosition()` is very buggy
 - [ ] `updateSize()` is also very buggy
