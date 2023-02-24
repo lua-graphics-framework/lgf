@@ -8,16 +8,18 @@ window:sync(60)
 local renderer = LGF.Renderer.create()
 renderer:changeColorRGB(0, 0, 0)
 
+local font = LGF.Font.create()
+font:loadFont("tests/res/gfx/font.ttf", 20)
+
+local text = LGF.Text.create("What is this?", 255, 255, 255, 10, 10)
+font:loadText(text)
+
 while window:active() do
   renderer:clearScreen()
+
+  text:draw()
+
   renderer:render()
-
-  -- mouse:poll()
-
-  if mouse:mouseButtonUp(1) == true then
-    print("??")
-  end
-
   window:update()
 end
 

@@ -32,6 +32,11 @@ int FontLoader::loadFont(lua_State *L)
 
 int FontLoader::loadText(lua_State *L)
 {
+  if (fonts.size() == 0) {
+    std::cerr << "Error: Attempted to load text with no font!" << std::endl;
+    exit(1);
+  }
+
   int index = lua_tonumber(L, 1);
   const char *str = lua_tostring(L, 2);
 
@@ -52,6 +57,12 @@ int FontLoader::loadText(lua_State *L)
 int FontLoader::renderText(lua_State *L)
 {
   int index = lua_tonumber(L, 1);
+  
+  if (text.size() == 0) {
+    std::cerr << "Error: Attempted to draw nonexistant text!" << std::endl;
+    exit(1);
+  }
+
   Renderer::drawText(text[index].x, text[index].y, text[index].texture);
   return 0;
 }

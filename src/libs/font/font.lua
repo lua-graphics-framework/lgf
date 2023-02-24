@@ -7,7 +7,7 @@ text.__index = text
 local index = -1
 local textIndex = -1
 
-function text.new(txt, r, g, b, x, y)
+function text.create(txt, r, g, b, x, y)
   local self = setmetatable({}, text)
   textIndex = textIndex + 1
 
@@ -23,8 +23,8 @@ function text.new(txt, r, g, b, x, y)
   return self
 end
 
-function text:draw(x, y)
-  renderText(self.idx, x, y)
+function text:draw()
+  renderText(self.idx, self.x, self.y)
 end
 
 function text:changeText(newText)
@@ -50,5 +50,12 @@ function font:loadFont(fontPath, size)
 end
 
 function font:loadText(text)
-  loadText(text.idx, text.text, text.r, text.g, text.b, text.x, text.y)
+  if text.x and text.y and text.text and text.r and text.g and text.b and text.idx then
+    loadText(text.idx, text.text, text.r, text.g, text.b, text.x, text.y)
+  else
+    print("Error: Attempted to load invalid text.")
+    print("\tPlease make sure you are passing a `LGF.Text` object rather than a string.")
+    print("\tAlso, be sure that each member variable of the text object is valid.")
+    os.exit(1, true)
+  end
 end
