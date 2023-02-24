@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 {
   lua_State *L = luaL_newstate();
   luaL_openlibs(L);
-  
+
   Window::syncWithLua(L);
   Renderer::syncWithLua(L);
   Rectangle::syncWithLua(L);
@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
   Keyboard::syncWithLua(L);
   ImageLoader::syncWithLua(L);
   FontLoader::syncWithLua(L);
- 
+
   luaL_dofile(L, argv[1]);
   std::cout << lua_tostring(L, -1) << std::endl;
   lua_close(L);
