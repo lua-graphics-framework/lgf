@@ -52,6 +52,10 @@ int Keyboard::poll(lua_State *L)
     key = event.key.keysym.sym;
   }
 
+  if (event.type == SDL_KEYUP) {
+    key = 0;
+  }
+
   return 0;
 }
 
