@@ -12,31 +12,14 @@ To use LGF, you need to install the CLI tools, which will install LGF automatica
 
 ### **Windows**
 
-Now, building LGF on Windows is a big pain currently. I would recommend just installing the CLI. But if you really want to, you need to install Git, CMake, MinGW or Visual Studio 2022, and Lua. Then, run these Powershell commands to get a copy of LGF:
+Now, building LGF on Windows is a big pain currently. I would recommend just installing the CLI. But if you really want to, you need to install Git, CMake, MinGW or Visual Studio 2022, and Lua. Then, run these Powershell commands to get LGF built.
 
-- `git clone --recursive https://github.com/lua-graphics-framework/lgf` - note that this will take a while depending on your internet connection speeds
+- `git clone https://github.com/lua-graphics-framework/lgf` - note that this will take a while depending on your internet connection speeds
 - `cd lgf`
-
-Next, you need to build Freetype. This is needed by SDL2_ttf. To do that, enter these Powershell commands:
-
-- `cd external/freetype`
 - `mkdir build`
 - `cd build`
-- `cmake .. -G "MinGW Makefiles"` - use this command if you are using MinGW or this command: `cmake ..` if you are using Visual Studio
-
-Next, if you are using MinGW, then simply type in `make`. If you are using Visual Studio, open up the solution in the build folder and then build the solution. Finally, you need to move the build result (I believe it is a .a file on MinGW and a .lib in Visual Studio) into the main LGF folder (where src and external are located at).
-
-Now, run these commands to set up the build directory for LGF:
-
-- `mkdir build`
-- `cd build`
-
-Now, move the file you moved from the freetype folder to the `build` directory.
-
-After that, run these commands to build LGF and its dependencies:
-
 - `cmake .. -G "MinGW Makefiles` **OR** `cmake ..`
-- `make` **OR** open the solution with Visual Studio
+- `make` **OR** open the solution with Visual Studio and build the solution.
 
 Finally, move the .dll files with the `LuaGraphicsFramework.exe` file. Now, you are ready to use LGF. Again, the CLI makes this a lot easier.
 
@@ -44,8 +27,20 @@ Finally, move the .dll files with the `LuaGraphicsFramework.exe` file. Now, you 
 
 On Linux, building LGF is a lot easier. Enter the following commands:
 
-- `sudo apt install libfreetype-dev cmake make gcc g++ -y` - These are Debian/Ubuntu instructions; translate to your Linux distro
-- `git clone --recursive https://github.com/lua-graphics-framework/lgf`
+- `sudo apt install cmake make gcc g++ -y` - These are Debian/Ubuntu instructions; translate to your Linux distro
+- `git clone https://github.com/lua-graphics-framework/lgf`
+- `cd lgf`
+- `mkdir build`
+- `cd build`
+- `cmake ..`
+- `make`
+
+### **macOS**
+
+On macOS, building LGF is also easy. But, you will need Homebrew installed before proceeding. Enter the following commands:
+
+- `brew install cmake`
+- `git clone https://github.com/lua-graphics-framework/lgf`
 - `cd lgf`
 - `mkdir build`
 - `cd build`
@@ -54,16 +49,47 @@ On Linux, building LGF is a lot easier. Enter the following commands:
 
 Now you can use LGF.
 
+## **Changelog**
+
+- v0.1.2
+
+  - Fixed/rewrote the CLI
+  - Fixed mouse events
+  - Fixed segfault when drawing unloaded text
+  - Fixed segfault when using an unloaded font
+  - Fixed updateSize() and updatePosition()
+  - Added macOS support
+  - Added Linux support
+
+- v0.1.1
+
+  - Fixed crashing when you change the position of a rectangle
+  - Fixed crashing when you change the size of a rectangle
+  - Removed unnecessary window.new() and rectangle.new() methods
+  - Removed unnecessary mouse event variables
+  - Renamed renderer.new() to renderer.create()
+  - Added the ability to change the text of a font
+  - Added the ability to change the position of a font
+  - Added the ability to "crop" images using src rectangles
+  - Added more keycodes
+
+- v0.1.0
+  - The very first release of LGF!
+
 ## **Roadmap & Status**
 
 I currently do not recommend using LGF for commercial projects quite yet. It is a very new library with very little features. Here is a roadmap listed below:
 
 - [x] Core modules (window, rectangle, mouse, image, etc.)
 - [x] CLI tools
-- [ ] Linux support
+- [x] Linux support
+- [x] OSX support
+- [ ] Multiple Lua scripts support
 - [ ] Packaging system
-- [ ] OSX support
+- [ ] Actual documentation
+- [ ] LuaJIT
 - [ ] Sound module
 - [ ] Custom LGF renderer
-- [ ] LuaJIT
 - [ ] Custom underlying windowing system
+- [ ] Android & iOS support
+- [ ] Web support through WebAssembly
