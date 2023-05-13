@@ -86,6 +86,7 @@ I currently do not recommend using LGF for commercial projects quite yet. It is 
 - [x] OSX support
 - [ ] Multiple Lua scripts support
 - [ ] Packaging system
+- [ ] VSCode extension
 - [ ] Actual documentation
 - [ ] LuaJIT
 - [ ] Sound module
