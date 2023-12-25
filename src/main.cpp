@@ -16,18 +16,17 @@
 SDL_Window *win;
 SDL_Renderer *ren;
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   lua_State *L = luaL_newstate();
   luaL_openlibs(L);
 
-  Window::syncWithLua(L);
-  Renderer::syncWithLua(L);
-  Rectangle::syncWithLua(L);
-  Mouse::syncWithLua(L);
-  Keyboard::syncWithLua(L);
-  ImageLoader::syncWithLua(L);
-  FontLoader::syncWithLua(L);
+  Window::registerLuaFunctions(L);
+  Renderer::registerLuaFunctions(L);
+  Rectangle::registerLuaFunctions(L);
+  Mouse::registerLuaFunctions(L);
+  Keyboard::registerLuaFunctions(L);
+  ImageLoader::registerLuaFunctions(L);
+  FontLoader::registerLuaFunctions(L);
 
   luaL_dofile(L, argv[1]);
   std::cout << lua_tostring(L, -1) << std::endl;

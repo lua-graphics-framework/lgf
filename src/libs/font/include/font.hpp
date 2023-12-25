@@ -15,12 +15,14 @@ struct Text
 
 namespace FontLoader
 {
-  int loadFont(lua_State *L);
-  int loadText(lua_State *L);
-  int renderText(lua_State *L);
+  
+int loadFont(lua_State *L);
+int loadText(lua_State *L);
+int renderText(lua_State *L);
 
-  int changeText(lua_State *L);
-  int changePosition(lua_State *L);
+int changeText(lua_State *L);
+int changePosition(lua_State *L);
 
-  void syncWithLua(lua_State *L);
+void registerLuaFunctions(lua_State *L);
+
 };
