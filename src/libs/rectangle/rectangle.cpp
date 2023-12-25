@@ -5,7 +5,7 @@
 #include "include/rectangle.hpp"
 #include "../renderer/include/renderer.hpp"
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include <lua.hpp>
 
 // List of rectangles
