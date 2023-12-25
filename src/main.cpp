@@ -17,6 +17,12 @@ SDL_Window *win;
 SDL_Renderer *ren;
 
 int main(int argc, char *argv[]) {
+  // Make sure a Lua script argument has been given
+  if (argc == 1) {
+    std::cout << "Give a Lua script's file location!" << std::endl;
+    exit(1);
+  }
+
   lua_State *L = luaL_newstate();
   luaL_openlibs(L);
 
