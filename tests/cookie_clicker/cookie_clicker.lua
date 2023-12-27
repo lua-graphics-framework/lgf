@@ -28,6 +28,15 @@ while window:active() do
 
   LGF.Mouse:poll()
 
+  if LGF.Mouse:mouseButtonUp(1) then
+    local mousePos = LGF.Mouse:getCursorPos()
+
+    if LGF.Utils:mouseInRect(mousePos[1], mousePos[2], 590, 310, 100, 100) then
+      cookies_clicked = cookies_clicked + 1
+      text:changeText("Cookies: "..tostring(cookies_clicked))
+    end
+  end
+
   renderer:render()
   window:update()
 end
