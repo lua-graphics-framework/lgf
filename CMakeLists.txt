@@ -20,9 +20,6 @@ set(SRCS src/main.cpp ${FONT_SRCS} ${IMAGE_SRCS} ${KEYBOARD_SRCS} ${MOUSE_SRCS}
 option(BUILD_DEPENDENCIES "Build LGF's dependencies from source with LGF itself (simplifies build process)." ON)
 
 if(BUILD_DEPENDENCIES)
-  # set(FREETYPE_INCLUDE_DIRS ../external/freetype/include)
-  # set(FREETYPE_LIBRARY ../external/freetype/build/libfreetype.a)
-
   add_subdirectory(external/lua-5.4.4)
   add_subdirectory(external/SDL)
   add_subdirectory(external/SDL_image)
@@ -36,8 +33,10 @@ endif(BUILD_DEPENDENCIES)
 
 add_executable(LuaGraphicsFramework ${SRCS})
 
-if(MSVC OR MINGW)
-  target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua -static-libgcc -static-libstdc++)
-elseif(UNIX)
+if(MSVC)
+  target_link_libraries(LuaGraphicsFramework SDL2main SDL2 SDL2_image SDL2_ttf lua)
+endif(MSVC)
+
+if(UNIX)
   target_link_libraries(LuaGraphicsFramework SDL2main SDL2 SDL2_image SDL2_ttf lua dl -static-libgcc -static-libstdc++)
-endif(MSVC OR MINGW)
+endif(UNIX)
