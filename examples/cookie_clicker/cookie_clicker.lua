@@ -11,7 +11,7 @@ renderer:changeColorRGB(0, 0, 0)
 local cookies_clicked = 0;
 
 local font = LGF.Font.create()
-font:loadFont("tests/cookie_clicker/res/gfx/font.ttf", 40)
+font:loadFont("examples/cookie_clicker/res/gfx/font.ttf", 40)
 
 local text = LGF.Text.create("Cookies: 0", 255, 255, 255, 10, 10)
 font:loadText(text)
@@ -28,7 +28,7 @@ while window:active() do
 
   LGF.Mouse:poll()
 
-  if LGF.Mouse:mouseButtonUp(1) then
+  if LGF.Mouse:mouseButtonUp(1) == true then
     local mousePos = LGF.Mouse:getCursorPos()
 
     if LGF.Utils:mouseInRect(mousePos[1], mousePos[2], 590, 310, 100, 100) then

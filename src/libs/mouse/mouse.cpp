@@ -18,8 +18,7 @@ int x;
 int y;
 
 // Returns a boolean value determining if the mouse button provided is being held down
-int Mouse::mouseButtonDown(lua_State *L)
-{
+int Mouse::mouseButtonDown(lua_State *L) {
   int luaButton = lua_tonumber(L, 1);
 
   // If the buttons (left, right, middle) match and the mouse button is being held down

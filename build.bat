@@ -2,4 +2,5 @@
 
 cd build
 make
+move LuaGraphicsFramework.exe ..
 cd ..
