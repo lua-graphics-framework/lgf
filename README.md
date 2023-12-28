@@ -41,7 +41,7 @@ On Linux, building LGF is a lot easier. Enter the following commands:
 - `cd lgf`
 - `mkdir build`
 - `cd build`
-- `cmake .. -DBUILD_DEPENDENCIES=OFF`
+- `cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_DEPENDENCIES=OFF ..`
 - `make`
 
 ### **macOS**
@@ -53,7 +53,7 @@ On macOS, building LGF is also easy. But, you will need Homebrew installed befor
 - `cd lgf`
 - `mkdir build`
 - `cd build`
-- `cmake ..`
+- `cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_DEPENDENCIES=OFF ..`
 - `make`
 
 Now you can use LGF.
