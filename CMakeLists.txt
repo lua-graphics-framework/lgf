@@ -17,18 +17,30 @@ set(WINDOW_SRCS src/libs/window/window.cpp)
 set(SRCS src/main.cpp ${FONT_SRCS} ${IMAGE_SRCS} ${KEYBOARD_SRCS} ${MOUSE_SRCS} 
   ${RECTANGLE_SRCS} ${WINDOW_SRCS} ${RENDERER_SRCS})
 
-if(MINGW OR MSVC)
-  add_subdirectory(external/lua-5.4.4)
-  link_directories(external/lib)
+option(BUILD_DEPENDENCIES "Build LGF's dependencies from source with LGF itself (simplifies build process)." ON)
 
-  include_directories(external)
+if(BUILD_DEPENDENCIES)
+  add_subdirectory(external/lua-5.4.4)
+  add_subdirectory(external/SDL)
+  add_subdirectory(external/SDL_image)
+  add_subdirectory(external/SDL_ttf)
+
   include_directories(external/lua-5.4.4/src)
-endif(MINGW OR MSVC)
+  include_directories(external/SDL/include)
+  include_directories(external/SDL_image/include)
+  include_directories(external/SDL_ttf)
+endif(BUILD_DEPENDENCIES)
+
+if(NOT BUILD_DEPENDENCIES)
+  include_directories(/usr/include/SDL2)
+endif(NOT BUILD_DEPENDENCIES)
 
 add_executable(LuaGraphicsFramework ${SRCS})
 
-if(MSVC OR MINGW)
-  target_link_libraries(LuaGraphicsFramework mingw32 SDL2main SDL2 SDL2_image SDL2_ttf lua -static-libgcc -static-libstdc++)
-elseif(UNIX)
+if(MSVC)
+  target_link_libraries(LuaGraphicsFramework SDL2main SDL2 SDL2_image SDL2_ttf lua)
+endif(MSVC)
+
+if(UNIX)
   target_link_libraries(LuaGraphicsFramework SDL2main SDL2 SDL2_image SDL2_ttf lua dl -static-libgcc -static-libstdc++)
-endif(MSVC OR MINGW)
+endif(UNIX)

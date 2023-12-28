@@ -1,26 +1,27 @@
 #pragma once
 
 #include <lua.hpp>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL.h>
+#include <SDL_ttf.h>
 
-namespace Renderer
-{
-  int create(lua_State *L);
-  int toggleVSync(lua_State *L);
-  int clearScreen(lua_State *L);
-  int render(lua_State *L);
-  int changeColorRGB(lua_State *L);
+namespace Renderer {
 
-  void setDrawColor(int r, int g, int b);
-  void renderRect(SDL_Rect rect);
+int create(lua_State *L);
+int toggleVSync(lua_State *L);
+int clearScreen(lua_State *L);
+int render(lua_State *L);
+int changeColorRGB(lua_State *L);
 
-  SDL_Texture *loadImg(const char *filepath);
+void setDrawColor(int r, int g, int b);
+void renderRect(SDL_Rect rect);
 
-  void drawImg(int x, int y, unsigned int width, unsigned int height, int srcX, int srcY, int srcW, int srcH, SDL_Texture *texture);
-  void drawText(int x, int y, SDL_Texture *text);
+SDL_Texture *loadImg(const char *filepath);
 
-  SDL_Texture *loadText(const char *text, int r, int g, int b, TTF_Font *font);
+void drawImg(int x, int y, unsigned int width, unsigned int height, int srcX, int srcY, int srcW, int srcH, SDL_Texture *texture);
+void drawText(int x, int y, SDL_Texture *text);
 
-  void syncWithLua(lua_State *L);
+SDL_Texture *loadText(const char *text, int r, int g, int b, TTF_Font *font);
+
+void registerLuaFunctions(lua_State *L);
+
 }

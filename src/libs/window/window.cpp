@@ -1,9 +1,9 @@
 #include <iostream>
 #include <string>
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <SDL2/SDL_ttf.h>
+#include <SDL.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 
 #include "include/window.hpp"
 
@@ -23,28 +23,22 @@ double frameTime;
 Uint32 frameStart;
 
 // Sets the SDL2 window and renderer to the local window module one
-void Window::config(SDL_Window *win)
-{
-  if (!windowCreated)
-  {
+void Window::config(SDL_Window *win) {
+  if (!windowCreated) {
     window = win;
   }
 }
 
 // Called before the window's renderer is cleared
-void Window::beforeClear()
-{
-  if (limit > 0)
-  {
+void Window::beforeClear() {
+  if (limit > 0) {
     frameStart = SDL_GetTicks();
   }
 }
 
 // Actually creates the main SDL2 window
-int Window::create(lua_State *L)
-{
-  if (!windowCreated)
-  {
+int Window::create(lua_State *L) {
+  if (!windowCreated) {
     windowCreated = true;
 
     // Get Lua parameters
@@ -78,40 +72,31 @@ int Window::create(lua_State *L)
 }
 
 // Returns a boolean value determining if the window should stay open
-int Window::active(lua_State *L)
-{
+int Window::active(lua_State *L) {
   lua_pushboolean(L, windowActive);
   beforeClear();
-  
+
   return 1;
 }
 
 // Switches the FPS limit to the one provided
-int Window::sync(lua_State *L)
-{
+int Window::sync(lua_State *L) {
   limit = lua_tonumber(L, 1);
   return 0;
 }
 
 // Updates the window
-int Window::update(lua_State *L)
-{
+int Window::update(lua_State *L) {
   // Event handling
-  if (SDL_PollEvent(&event))
-  {
-    if (event.type == SDL_QUIT)
-    {
-      windowActive = false;
-    }
+  if (SDL_PollEvent(&event) && event.type == SDL_QUIT) {
+    windowActive = false;
   }
 
   // FPS limiting
-  if (limit > 0)
-  {
+  if (limit > 0) {
     frameTime = SDL_GetTicks() - frameStart;
 
-    if (frameDelay > frameTime)
-    {
+    if (frameDelay > frameTime) {
       SDL_Delay(frameDelay - frameTime);
     }
   }
@@ -122,15 +107,13 @@ int Window::update(lua_State *L)
 // Sets the window's custom icon
 int Window::setIcon(lua_State *L)
 {
-  // TODO:
+  // TODO: this.
   return 0;
 }
 
 // Closes the window
-int Window::close(lua_State *L)
-{
-  if (window)
-  {
+int Window::close(lua_State *L) {
+  if (window) {
     SDL_DestroyWindow(window);
     
     TTF_Quit();
@@ -142,8 +125,7 @@ int Window::close(lua_State *L)
 }
 
 // Pushes all of these functions to the Lua stack to be callable by Lua
-void Window::syncWithLua(lua_State *L)
-{
+void Window::registerLuaFunctions(lua_State *L) {
   lua_register(L, "windowCreate", create);
   lua_register(L, "active", active);
   lua_register(L, "sync", sync);
@@ -153,13 +135,11 @@ void Window::syncWithLua(lua_State *L)
 }
 
 // Returns the SDL2 window handle
-SDL_Window *Window::win()
-{
+SDL_Window *Window::win() {
   return window;
 }
 
 // Returns the SDL2 event handle
-SDL_Event Window::getEv()
-{
+SDL_Event Window::getEv() {
   return event; 
 }

@@ -2,7 +2,7 @@
 #include <string>
 #include <vector>
 
-#include <SDL2/SDL_ttf.h>
+#include <SDL_ttf.h>
 #include <lua.hpp>
 
 #include "../renderer/include/renderer.hpp"
@@ -13,15 +13,13 @@
 std::vector<TTF_Font *> fonts;
 std::vector<Text> text;
 
-int FontLoader::loadFont(lua_State *L)
-{
+int FontLoader::loadFont(lua_State *L) {
   const char *path = lua_tostring(L, 1);
   int size = lua_tonumber(L, 2);
 
   TTF_Font *font = TTF_OpenFont(path, size);
-  
-  if (!font)
-  {
+
+  if (!font) {
     std::cout << "Error: Invalid font path \"" << path << "\".\n";
     exit(1);
   }
@@ -30,8 +28,7 @@ int FontLoader::loadFont(lua_State *L)
   return 0;
 }
 
-int FontLoader::loadText(lua_State *L)
-{
+int FontLoader::loadText(lua_State *L) {
   if (fonts.size() == 0) {
     std::cerr << "Error: Attempted to load text with no font!" << std::endl;
     exit(1);
@@ -54,10 +51,9 @@ int FontLoader::loadText(lua_State *L)
   return 0;
 }
 
-int FontLoader::renderText(lua_State *L)
-{
+int FontLoader::renderText(lua_State *L) {
   int index = lua_tonumber(L, 1);
-  
+
   if (text.size() == 0) {
     std::cerr << "Error: Attempted to draw nonexistant text!" << std::endl;
     exit(1);
@@ -68,15 +64,14 @@ int FontLoader::renderText(lua_State *L)
 }
 
 // Changes the text's text
-int FontLoader::changeText(lua_State *L)
-{
+int FontLoader::changeText(lua_State *L) {
   int index = lua_tonumber(L, 1);
   const char *txt = lua_tostring(L, 2);
 
   // Reload the texture
   SDL_Texture *newTexture = Renderer::loadText(txt, text[index].color.r, text[index].color.g, 
     text[index].color.b, fonts[index]);
-  
+
   text[index].texture = newTexture;
   text[index].text = txt;
 
@@ -84,8 +79,7 @@ int FontLoader::changeText(lua_State *L)
 }
 
 // Changes the text's position
-int FontLoader::changePosition(lua_State *L)
-{
+int FontLoader::changePosition(lua_State *L) {
   int index = lua_tonumber(L, 1);
   text[index].x = lua_tonumber(L, 2);
   text[index].y = lua_tonumber(L, 3);
@@ -93,8 +87,7 @@ int FontLoader::changePosition(lua_State *L)
   return 0; 
 }
 
-void FontLoader::syncWithLua(lua_State *L)
-{
+void FontLoader::registerLuaFunctions(lua_State *L) {
   lua_register(L, "loadFont", loadFont);
   lua_register(L, "loadText", loadText);
   lua_register(L, "renderText", renderText);

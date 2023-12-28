@@ -12,16 +12,25 @@ To use LGF, you need to install the CLI tools, which will install LGF automatica
 
 ### **Windows**
 
-Now, building LGF on Windows is a big pain currently. I would recommend just installing the CLI. But if you really want to, you need to install Git, CMake, MinGW or Visual Studio 2022, and Lua. Then, run these Powershell commands to get LGF built.
+In order to build LGF on Windows, you need Git, CMake, and a C/C++ (preferably MSVC). These build instructions are for MSVC, but you can build with MinGW with some modifications.
 
-- `git clone https://github.com/lua-graphics-framework/lgf` - note that this will take a while depending on your internet connection speeds
+Run these _powershell_ commands to get the LGF source code (along with its dependencies):
+
+- `git clone --recurse-submodules -j8 https://github.com/lua-graphics-framework/lgf`
 - `cd lgf`
 - `mkdir build`
 - `cd build`
-- `cmake .. -G "MinGW Makefiles` **OR** `cmake ..`
-- `make` **OR** open the solution with Visual Studio and build the solution.
+- `cmake ..`
+- `cmake --build . --config Release`
 
-Finally, move the .dll files with the `LuaGraphicsFramework.exe` file. Now, you are ready to use LGF. Again, the CLI makes this a lot easier.
+In order to run LGF on Windows, it must be included with its DLLs. Run these commands:
+
+- `mv external\lua-5.4.4\Release\*.dll Release`
+- `mv external\SDL\Release\*.dll Release`
+- `mv external\SDL_image\Release\*.dll Release`
+- `mv external\SDL_ttf\Release\*.dll Release`
+
+LGF can now be found in the `release` folder!
 
 ### **Linux**
 
@@ -32,7 +41,7 @@ On Linux, building LGF is a lot easier. Enter the following commands:
 - `cd lgf`
 - `mkdir build`
 - `cd build`
-- `cmake ..`
+- `cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_DEPENDENCIES=OFF ..`
 - `make`
 
 ### **macOS**
@@ -44,7 +53,7 @@ On macOS, building LGF is also easy. But, you will need Homebrew installed befor
 - `cd lgf`
 - `mkdir build`
 - `cd build`
-- `cmake ..`
+- `cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_DEPENDENCIES=OFF ..`
 - `make`
 
 Now you can use LGF.
