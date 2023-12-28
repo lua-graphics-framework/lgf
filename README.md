@@ -41,7 +41,7 @@ On Linux, building LGF is a lot easier. Enter the following commands:
 - `cd lgf`
 - `mkdir build`
 - `cd build`
-- `cmake ..`
+- `cmake .. -DBUILD_DEPENDENCIES=OFF`
 - `make`
 
 ### **macOS**

@@ -31,6 +31,10 @@ if(BUILD_DEPENDENCIES)
   include_directories(external/SDL_ttf)
 endif(BUILD_DEPENDENCIES)
 
+if(NOT BUILD_DEPENDENCIES)
+  include_directories(/usr/include/SDL2)
+endif(NOT BUILD_DEPENDENCIES)
+
 add_executable(LuaGraphicsFramework ${SRCS})
 
 if(MSVC)
